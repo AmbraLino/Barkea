@@ -1,22 +1,21 @@
-import './App.css';
-import Navbar from './Base/NavBar';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './MainPages/Home';
-import About from './MainPages/About';
-import Contact from './MainPages/Contact';
+import "./App.css";
+import { Router, Routes, Route } from "react-router-dom";
+import Navbar from "./Base/NavBar";
+import Home from "./MainPages/Home";
+import About from "./MainPages/About";
+import Contact from "./MainPages/Contact";
+import 'leaflet/dist/leaflet.css';
 
 function App() {
   return (
-    <div>
-      <Router>
-        <Navbar /> 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </Router>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </>
   );
 }
 
