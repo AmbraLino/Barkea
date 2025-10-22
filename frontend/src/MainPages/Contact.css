@@ -1,0 +1,20 @@
+.contact-container {
+  background: linear-gradient(to bottom, #606C38, #283618);
+}
+
+.contact-header {
+  font-family: "Outfit";
+  color: #FEFAE0;
+}
+
+.contact-button {
+  background-color: #283618;
+  color: #FEFAE0;
+  transition: color 0.2s ease-in-out;
+  border: none;
+}
+
+.contact-button:hover {
+  background-color: #8ea447;
+  transition: color 0.2s ease-in-out;
+}
