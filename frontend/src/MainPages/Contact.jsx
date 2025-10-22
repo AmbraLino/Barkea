@@ -1,4 +1,4 @@
-import { Button, Form, Toast } from "react-bootstrap";
+import { Button, Form, Toast, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
 import "./Contact.css";
@@ -20,7 +20,12 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!contact.firstName || !contact.lastName || !contact.email || !contact.sms) {
+    if (
+      !contact.firstName ||
+      !contact.lastName ||
+      !contact.email ||
+      !contact.sms
+    ) {
       setToastMessage("Ju lutem plotesoni te gjitha fushat.");
       setShowToast(true);
       setTimeout(() => setShowToast(false), 5000);
@@ -28,7 +33,9 @@ function Contact() {
     }
     try {
       await axios.post("http://localhost:5000/contactUs", contact);
-      setToastMessage("Faleminderit qe na kontaktuat! Ne do ju pergjigjemi brenda 24 oreve.");
+      setToastMessage(
+        "Faleminderit qe na kontaktuat! Ne do ju pergjigjemi brenda 24 oreve."
+      );
       setShowToast(true);
       setContact({ firstName: "", lastName: "", email: "", sms: "" });
       setTimeout(() => setShowToast(false), 7000);
@@ -40,66 +47,79 @@ function Contact() {
   };
 
   return (
-    <div className="contact-form-container">
-      <div className="contact-header">
-        <h3>Jeni te interesuar per pronen tuaj te re? Na kontaktoni</h3>
+    <div className="contact-container">
+      <div className="pt-5 text-center">
+        <h3 className="contact-header pt-5 text-center display-6">
+          Jeni te interesuar per pronen tuaj te re? Na kontaktoni!
+        </h3>
       </div>
 
       <div className="contact-content">
         <div className="contact-left">
-          <h4>Vendndodhja jone</h4>
+          <h4 className="contact-header pt-5 text-center display-6 text-decoration-underline">
+            Vendndodhja jone
+          </h4>
           {/* <Map/> */}
-
         </div>
 
         <div className="contact-right">
-          <h2 className="form-title">Contact Us</h2>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="firstName">
-              <Form.Label>Emri</Form.Label>
-              <Form.Control
-                type="text"
-                name="firstName"
-                value={contact.firstName}
-                onChange={handleChange}
-              />
-            </Form.Group>
+          <h2 className="contact-header pt-5 text-center display-4">Contact Us</h2>
 
-            <Form.Group className="mb-3" controlId="lastName">
-              <Form.Label>Mbiemri</Form.Label>
-              <Form.Control
-                type="text"
-                name="lastName"
-                value={contact.lastName}
-                onChange={handleChange}
-              />
-            </Form.Group>
+          <Row className="d-flex justify-content-center">
+            <Col md={6}>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="firstName">
+                  <Form.Label className="display-6 text-light">Emri</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="firstName"
+                    value={contact.firstName}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                value={contact.email}
-                onChange={handleChange}
-              />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="lastName">
+                  <Form.Label className="display-6 text-light">Mbiemri</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="lastName"
+                    value={contact.lastName}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="comment">
-              <Form.Label>Mesazhi</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="sms"
-                value={contact.sms}
-                onChange={handleChange}
-              />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="email">
+                  <Form.Label className="display-6 text-light">Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={contact.email}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Button variant="primary" type="submit" className="submit-btn">
-              Submit
-            </Button>
-          </Form>
+                <Form.Group className="mb-3" controlId="comment">
+                  <Form.Label className="display-6 text-light">Mesazhi</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    name="sms"
+                    value={contact.sms}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+
+                <div className="d-flex justify-content-center my-5">
+                  <button
+                    className="contact-button px-5 py-2 rounded fw-bold"
+                    type="submit"
+                  >
+                    SUBMIT
+                  </button>
+                </div>
+              </Form>
+            </Col>
+          </Row>
         </div>
       </div>
 
