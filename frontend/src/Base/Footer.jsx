@@ -6,6 +6,7 @@ import logo from '../Images/barkea_logo_transparent.png';
 const Footer = () => {
 return(
     <div>
+      
       <div className="footer">
         <div className="footer-top">
           <div className="footer-left">
@@ -28,7 +29,7 @@ return(
 
           <div className="footer-right">
             <div className="company">
-              <h3 className="footer-title">Barkea - Real Estate</h3>
+              <h3 className="footer-title"> <a href="/" style={{ textDecoration: "none", color: "white" }}>Barkea - Real Estate</a></h3>
                 <p>
                 <a href="/about" style={{ textDecoration: "none", color: "white" }} className="footer-info">
                   Perreth Nesh
@@ -65,5 +66,20 @@ return(
   );
 };
 export default Footer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

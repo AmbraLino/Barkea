@@ -7,6 +7,7 @@ import home22 from "../Images/home22.jpg";
 import home3 from "../Images/home3.jpg";
 import apt1 from "../Images/apt1.jpg";
 import studio1 from "../Images/studio1.jpg";
+ import { FaSmile, FaHome, FaWallet, FaMapMarkedAlt } from "react-icons/fa";
 import "./Home.css";
 
 const Home = () => {
@@ -107,6 +108,40 @@ const Home = () => {
       </div>
 
       <div className="home-section5"></div>
+
+
+     {/* Features */}
+     <div className="choose-us">
+             <h2>Why Choose Us</h2>
+             <p className="choose-subtitle">Ne ofrojmë përvojë të plotë në çdo hap.</p>
+     
+             <div className="choose-grid">
+               <div className="choose-card">
+                 <FaSmile className="choose-icon" />
+                 <h4>Të besuar nga mijëra</h4>
+                 <p>Me mbi 1,000 klientë të kënaqur, ju jeni në duar të sigurta.</p>
+               </div>
+     
+               <div className="choose-card">
+                 <FaHome className="choose-icon" />
+                 <h4>Gamë e gjerë pronash</h4>
+                 <p>Një gamë e gjerë pronash për çdo nevojë dhe buxhet.</p>
+               </div>
+     
+               <div className="choose-card">
+                 <FaWallet className="choose-icon" />
+                 <h4>Financim i thjeshtë</h4>
+                 <p>Proces i lehtë dhe transparent financimi për klientët tanë.</p>
+               </div>
+     
+               <div className="choose-card">
+                 <FaMapMarkedAlt className="choose-icon" />
+                 <h4>Shiko lagjet</h4>
+                 <p>Eksploroni lagjet më të mira përpara se të zgjidhni.</p>
+               </div>
+             </div>
+           </div>
+
     </div>
   );
 };
