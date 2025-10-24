@@ -105,6 +105,29 @@
 }
 
 
+/* ------------------------------ */
+
+
+.pagination .page-item .page-link {
+  background-color: #FEFAE0;
+  color: #bc6c25;
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: #bc6c25;
+  color: #FEFAE0;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #bc6c25;
+  color: #FEFAE0;
+  border: none;
+}
+
+/* ---------------------------------- */
 
 
 .home-section3-text {
@@ -127,7 +150,7 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 .home-img {
-  height: 250px;
+  height: 300px;
   object-fit: cover;
   border-bottom: 3px solid #fefae0;
 }
