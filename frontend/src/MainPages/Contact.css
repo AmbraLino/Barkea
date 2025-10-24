@@ -1,20 +1,104 @@
+/* =============== CONTACT PAGE =============== */
 .contact-container {
-  background: linear-gradient(to bottom, #606C38, #283618);
+  padding: 80px 100px;
+  background-color: #f3eed5d8;
+  font-family: "Poppins", sans-serif;
+  color: #283618;
 }
 
 .contact-header {
-  font-family: "Outfit";
-  color: #FEFAE0;
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 600;
 }
 
+.contact-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.contact-right {
+  flex: 1;
+  background-color: #FEFAE0;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-right form label {
+  font-weight: 500;
+  color: #BC6C25;
+}
+
+.contact-right form input,
+.contact-right form textarea {
+  border: 1px solid #BC6C25;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease;
+}
 .contact-button {
-  background-color: #283618;
-  color: #FEFAE0;
-  transition: color 0.2s ease-in-out;
+  background-color: #BC6C25;
   border: none;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: 0.4s ease;
 }
 
 .contact-button:hover {
-  background-color: #8ea447;
-  transition: color 0.2s ease-in-out;
+  background-color: #DDA15E;
+  transform: translateY(-2px);
+}
+.contact-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-header{
+  font-size: 1.8rem;
+}
+.contact-left iframe,
+.contact-left .map-container {
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.contact-info-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: #333;
+}
+
+
+
+@media (max-width: 992px) {
+  .contact-content {
+    flex-direction: column;
+  }
+
+  .contact-right,
+  .contact-left {
+    width: 100%;
+  }
 }

@@ -27,11 +27,11 @@ const Home = () => {
 
       <div className="home-advertisement text-center py-5">
         <div className="home-text-adv mb-4">
-          <h2 className="home-h fw-bold fs-2">Barkea – Real Estate</h2>
-          <h4 className="home-h fw-semibold fs-5">
+          <h2 className="home-h fw-bold">Barkea – Real Estate</h2>
+          <h4 className="home-h fw-semibold">
             Ju ofron komoditet, siguri, cilesi dhe elegance
           </h4>
-          <h5 className="home-h fs-6">Ketu jane disa nga punet tona</h5>
+          <h5 className="home-h">Ketu jane disa nga punet tona</h5>
         </div>
 
         <div className="home-carousel-container mx-auto shadow-sm rounded overflow-hidden">
@@ -78,6 +78,7 @@ const Home = () => {
       <div className="home-section4 container py-5 d-flex flex-wrap justify-content-center gap-4">
         <div className="home-house-type card border-0 shadow-sm text-center" style={{ width: "22rem" }}>
           <img src={home1} alt="House Type 1" className="card-img-top home-img" />
+            <div className="overlay">Eksploro</div>
           <div className="card-body">
             <h3 className="home-h fw-bold fs-4">Vila Moderne</h3>
             <p className="home-p fs-6">
@@ -88,6 +89,7 @@ const Home = () => {
 
         <div className="home-house-type card border-0 shadow-sm text-center" style={{ width: "22rem" }}>
           <img src={apt1} alt="House Type 2" className="card-img-top home-img" />
+          <div className="overlay">Eksploro</div>
           <div className="card-body">
             <h3 className="home-h fw-bold fs-4">Apartamente</h3>
             <p className="home-p fs-6">
@@ -96,11 +98,12 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="home-house-type card border-0 shadow-sm text-center" style={{ width: "22rem" }}>
+        <div className="home-house-type card border-0 shadow-sm text-center" style={{ width: "18rem" }}>
           <img src={studio1} alt="House Type 3" className="card-img-top home-img" />
+                    <div className="overlay">Eksploro</div>
           <div className="card-body">
-            <h3 className="home-h fw-bold fs-4">Studio</h3>
-            <p className="home-p fs-6">
+            <h3 className="home-h fw-bold ">Studio</h3>
+            <p className="home-p ">
               Studiot me hapësira të zgjuara, moderne dhe komode, perfekte për profesionistët.
             </p>
           </div>
@@ -112,7 +115,7 @@ const Home = () => {
 
      {/* Features */}
      <div className="choose-us">
-             <h2>Why Choose Us</h2>
+             <h2>Perse te na zgjidhni ne?</h2>
              <p className="choose-subtitle">Ne ofrojmë përvojë të plotë në çdo hap.</p>
      
              <div className="choose-grid">
