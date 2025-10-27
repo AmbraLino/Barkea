@@ -7,11 +7,11 @@ app.post("/contactUs", async (req, res) => {
     try {
         const newContact = new ContactModel(req.body);
         await newContact.save();
-        console.log("New contact added:", newContact);
+        console.log("Nje kontakt i ri u shtua:", newContact);
         res.status(200).send(newContact);
     } catch (err) {
-        console.log("Not added contact:", err);
-        res.status(500).send("Not added");
+        console.log("Nuk u shtua kontakti:", err);
+        res.status(500).send("Nuk u shtua");
     }
 });
 
