@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");
 const path = require("path");
+const userApp = require ("./Routes/userRoute")
+const contactApp = require("./Routes/contactRoute");
 
 const app = express();
 
@@ -19,6 +21,9 @@ app.use(session({
     cookie: { maxAge: 1000 * 60 * 60 * 24 } 
 }));
 
+// Routet
+app.use(contactApp);
+app.use(userApp);
 // Routes
 
 const contactApp = require("./Routes/contactRoute");
