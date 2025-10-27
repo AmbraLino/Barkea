@@ -5,6 +5,8 @@ const session = require("express-session");
 const path = require("path");
 const userApp = require ("./Routes/userRoute")
 const contactApp = require("./Routes/contactRoute");
+const adminApp = require("./Routes/adminRoute");
+const agentApp = require("./Routes/agentRoute");
 
 const app = express();
 
@@ -22,22 +24,13 @@ app.use(session({
 }));
 
 // Routet
-app.use(contactApp);
-app.use(userApp);
-// Routes
-
-const contactApp = require("./Routes/contactRoute");
-app.use("/", contactApp);
-const userRoute = require("./Routes/userRoute");
-const adminRoute = require("./Routes/adminRoute");
-const agentRoute = require("./Routes/agentRoute");
-
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/user", userRoute);
-app.use("/api/admin", adminRoute);
-app.use("/api/agent", agentRoute);
+app.use(contactApp);
+app.use(userApp);
+app.use(adminApp);
+app.use(agentApp);
 
 
 app.use("/Images", express.static(path.join(__dirname, "Images")));
