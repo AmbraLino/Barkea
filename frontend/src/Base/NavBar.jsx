@@ -6,7 +6,6 @@ import logo  from '../Images/barkea_logo_transparent.png';
 
 function NavBar() {
   return (
-    // <Navbar expand="lg" className="bg-body-tertiary">
     <Navbar expand="lg" style={{background:"#283618"}}>
       <Container>
         <Navbar.Brand> <img src={logo} alt="Barkea Logo" width="120px"/>
@@ -17,6 +16,9 @@ function NavBar() {
             <Nav.Link className="navbar-link" href="/" style={{color:"#FEFAE0"}}>Faqja Kryesore</Nav.Link>
             <Nav.Link className="navbar-link" href="/about" style={{color:"#FEFAE0"}}>Përreth Nesh</Nav.Link>
             <Nav.Link className="navbar-link" href="/contact" style={{color:"#FEFAE0"}}>Kontakt</Nav.Link>
+            <Nav.Link className="navbar-link" href="/login" style={{color:"#FEFAE0"}}>Hyr</Nav.Link>
+
+
           </Nav>
         </Navbar.Collapse>
       </Container>
