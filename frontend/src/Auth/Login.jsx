@@ -33,54 +33,57 @@ const Login = () => {
   };
 
   return (
+    
+    <div className='login-full-container'>
     <div className="login-container">
       <div className="login-form">
-        <div className="login-brand">
+        {/* <div className="login-brand">
           <img src={logo} width="180" height="80" alt="logo" />
-        </div>
+        </div> */}
 
-        <h2>Sign In</h2>
-        <p className="login-subtitle">Please fill your details to access your account.</p>
+        <h2>Hyr</h2>
+        <p className="login-subtitle">Ju lutem plotësoni të dhënat tuaja për të hyrë në llogari.</p>
 
         <label>Email *</label>
         <input
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter Email Address"
+          placeholder="Shkruani adresën e email-it"
         />
 
-        <label>Password *</label>
+        <label>Fjalëkalimi *</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter Password"
+          placeholder="Shkruani fjalëkalimin"
         />
 
         <div className="login-options">
-          
-          <a href="/forgot" className="forgot-password">Forgot Password?</a>
+          <a href="/forgot" className="forgot-password">Harruat fjalëkalimin?</a>
         </div>
 
         {error && <p className="error">{error}</p>}
 
-        <button onClick={handleLogin}>Sign In</button>
+        <button onClick={handleLogin}>Hyr</button>
 
-        <p className="signup-text">
-          Don't have an account?{" "}
-          <a href="/register">Sign Up</a>
+        <p className="login-signup-text">
+         Nuk keni llogari?{" "}
+          <a href="/register" className="login-register">Regjistrohu</a>
         </p>
       </div>
       <div className="login-carousel">
-        <Carousel fade indicators={false} controls={false} interval={2500}>
+        {/* <Carousel fade indicators={false} controls={false} interval={2500}> */}
+        <Carousel fade indicators={false}>
           {[home1, home22, vilaPushimi1].map((photo, index) => (
             <Carousel.Item key={index}>
-              <img src={photo} alt={`Slide ${index + 1}`} />
+              <img src={photo} className="d-block w-100" alt={`Slide ${index + 1}`} />
             </Carousel.Item>
           ))}
         </Carousel>
       </div>
+    </div>
     </div>
   );
 };
