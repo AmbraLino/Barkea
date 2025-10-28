@@ -16,6 +16,10 @@ const productSchema = new mongoose.Schema({
   price: {
     type: Number
   },
+  
+  category: {
+    type: String
+  },
 
   ownerItem: {
     type: mongoose.Schema.Types.ObjectId,
