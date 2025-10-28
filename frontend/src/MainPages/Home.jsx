@@ -96,7 +96,6 @@ const Home = () => {
         </div>
       </div>
 
-
       <div className="home-section3-text text-center container py-5">
         <h2 className="home-h fw-semibold fs-2 mb-3">
           Këtu mund të gjeni atë çka dëshironi dhe keni ëndërruar.
