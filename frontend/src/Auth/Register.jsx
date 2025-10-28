@@ -33,7 +33,7 @@ const Register = () => {
   };
 
   return (
-    <div className='AAA'>
+    <div className='register-full-container'>
     <div className="register-container">
       <div className="register-form">
         <div className="logo-header">
@@ -41,24 +41,24 @@ const Register = () => {
           {/* <span>Barkea</span> */}
         </div>
 
-        <h2>Sign Up</h2>
-        <p className="form-subtext">Please fill your details to create an account.</p>
+        <h2>Regjistrohu</h2>
+        <p className="form-subtext">Ju lutem plotësoni të dhënat tuaja për të krijuar një llogari.</p>
 
-        <label>Username *</label>
-        <input type="text" name="username" value={newUser.username} onChange={handleChange} placeholder="Enter Username" />
+        <label>Emri përdoruesit *</label>
+        <input type="text" name="username" value={newUser.username} onChange={handleChange} placeholder="Shkruani emrin e përdoruesit" />
 
         <label>Email *</label>
-        <input type="text" name="email" value={newUser.email} onChange={handleChange} placeholder="Enter Email Address" />
+        <input type="text" name="email" value={newUser.email} onChange={handleChange} placeholder="Shkruani adresën e email-it" />
 
-        <label>Password *</label>
-        <input type="password" name="password" value={newUser.password} onChange={handleChange} placeholder="Enter Password" />
+        <label>Fjalëkalimi *</label>
+        <input type="password" name="password" value={newUser.password} onChange={handleChange} placeholder="Shkruani fjalëkalimin" />
 
         {error && <p className="error">{error}</p>}
 
-        <button className="submit-btn" onClick={handleSubmit}>Sign Up</button>
+        <button className="submit-btn" onClick={handleSubmit}>Regjistrohu</button>
 
         <p className="login-link">
-          Already have an account? <a href="/login">Sign In</a>
+          Keni tashmë një llogari? <a href="/login">Hyr</a>
         </p>
       </div>
 

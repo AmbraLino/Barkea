@@ -1,4 +1,4 @@
-.AAA{
+.register-full-container {
     background: linear-gradient(to bottom, #606C38, #283618);
     display: flex;
     align-items: center;
@@ -6,29 +6,28 @@
 }
 
 .register-container {
-  display: flex;
-  max-width: 1000px;
-  /* margin: 50px auto; */
-  border-radius: 10px;
-  /* box-shadow: 0 4px 10px rgba(0,0,0,0.1); */
-  overflow: hidden;
-  flex-direction: row-reverse;
+    display: flex;
+    max-width: 1000px;
+    /* margin: 50px auto; */
+    /* border-radius: 10px; */
+    /* box-shadow: 0 4px 10px rgba(0,0,0,0.1); */
+    overflow: hidden;
+    flex-direction: row-reverse;
 }
 
 .register-form {
-  flex: 1;
-  padding: 50px;
-  background: linear-gradient(to bottom, #606C38, #283618);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    flex: 1;
+    padding: 50px;
+    background: linear-gradient(to bottom, #606C38, #283618);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .logo-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
 /* .logo-header img {
@@ -36,106 +35,109 @@
 } */
 
 .register-form h2 {
-  margin-bottom: 10px;
-  color:#FEFAE0;
+    margin-bottom: 10px;
+    color: #FEFAE0;
 }
 
 .form-subtext {
-  color: #BC6C25;
-  margin-bottom: 30px;
+    color: #BC6C25;
+    margin-bottom: 30px;
 }
 
 .register-form label {
-  margin-bottom: 5px;
-  font-weight: 500;
-    color:#FEFAE0;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #FEFAE0;
 
 }
 
 .register-form input {
-  margin-bottom: 15px;
-  padding: 10px;
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  color: #BC6C25;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    /* background-color: #DDA15E; */
+    color:#DDA15E;
+    background-color: #FEFAE0;
 }
 
 .error {
-  color: red;
-  margin-bottom: 15px;
+    color: red;
+    margin-bottom: 15px;
 }
 
 .submit-btn {
-  width: 100%;
-  padding: 12px;
-  background-color: #BC6C25;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 15px;
+    width: 100%;
+    padding: 12px;
+    background-color: #BC6C25;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
 }
 
 .login-link {
-  text-align: center;
-  margin-top: 20px;
-  color: #FEFAE0;
+    text-align: center;
+    margin-top: 20px;
+    color: #FEFAE0;
 }
 
 .login-link a {
-  color: #BC6C25;
+    color: #BC6C25;
 }
 
 .register-carousel {
-  flex: 1;
-  /* overflow: hidden;
-  border-radius: 0 10px 10px 0; */
+    flex: 1;
+    /* overflow: hidden;*/
+    border-radius: 0 10px 10px 0;
 }
 
 .register-carousel img {
-  width: 100%;
-  height: 708px;
-  object-fit: cover;
-   aspect-ratio: 4 / 3;
+    width: 100%;
+    height: 708px;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
 }
+
 @media (max-width: 320px) {
-  .register-container {
-    flex-direction: column;
-    margin: 20px;
-    border: none;
-    box-shadow: none;
-  }
+    .register-container {
+        flex-direction: column;
+        margin: 20px;
+        border: none;
+        box-shadow: none;
+    }
 
-  .register-form {
-    padding: 20px;
-    height: auto;
-  }
+    .register-form {
+        padding: 20px;
+        height: auto;
+    }
 
-  .logo-header span {
-    font-size: 20px;
-  }
+    .logo-header span {
+        font-size: 20px;
+    }
 
-  .register-form h2 {
-    font-size: 20px;
-  }
+    .register-form h2 {
+        font-size: 20px;
+    }
 
-  .form-subtext {
-    font-size: 12px;
-  }
+    .form-subtext {
+        font-size: 12px;
+    }
 
-  .register-form input {
-    padding: 8px;
-    font-size: 12px;
-  }
+    .register-form input {
+        padding: 8px;
+        font-size: 12px;
+    }
 
-  .submit-btn {
-    padding: 10px;
-    font-size: 14px;
-  }
+    .submit-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
 
-  .register-carousel img {
-    height: 200px;
-    margin-top: 10px;
-  }
+    .register-carousel img {
+        height: 200px;
+        margin-top: 10px;
+    }
 }
