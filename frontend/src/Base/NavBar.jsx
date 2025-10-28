@@ -14,6 +14,7 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="ms-auto">
             <Nav.Link className="navbar-link" href="/" style={{color:"#FEFAE0"}}>Faqja Kryesore</Nav.Link>
+            <Nav.Link className="navbar-link" href="/categories" style={{color:"#FEFAE0"}}>Kategoritë</Nav.Link>
             <Nav.Link className="navbar-link" href="/about" style={{color:"#FEFAE0"}}>Përreth Nesh</Nav.Link>
             <Nav.Link className="navbar-link" href="/contact" style={{color:"#FEFAE0"}}>Kontakt</Nav.Link>
             <Nav.Link className="navbar-link" href="/login" style={{color:"#FEFAE0"}}>Hyr</Nav.Link>

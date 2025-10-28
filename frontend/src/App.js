@@ -8,6 +8,7 @@ import Footer from "./Base/Footer";
 import 'leaflet/dist/leaflet.css';
 import Login from  "./Auth/Login";
 import Register from "./Auth/Register";
+import Categories from "./MainPages/Categories";
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register/>}/>
+        <Route path="/categories" element={<Categories/>}/>
       </Routes>
       <Footer />
     </>
