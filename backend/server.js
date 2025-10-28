@@ -9,6 +9,7 @@ const userApp = require ("./Routes/userRoute")
 const contactApp = require("./Routes/contactRoute");
 const adminApp = require("./Routes/adminRoute");
 const agentApp = require("./Routes/agentRoute");
+const productApp = require("./Routes/productRoute");
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(contactApp);
 app.use(userApp);
 app.use(adminApp);
 app.use(agentApp);
+app.use(productApp)
 
 
 app.use("/Images", express.static(path.join(__dirname, "Images")));
