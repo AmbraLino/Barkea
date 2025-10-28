@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { UserContext } from "../Auth/UserContext";
 import logo from "../Images/barkea_logo_transparent.png";
 import { Carousel } from "react-bootstrap";
 import home1 from "../Images/home1.jpg";
@@ -13,22 +12,19 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-//   const { setUserInfo } = useContext(UserContext);
   const nav = useNavigate();
 
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "http://localhost:5000/login",
         { email, password },
         { withCredentials: true }
       );
-    //   setUserInfo(res.data);
       if (res.data.role === "admin") nav("/create");
       else nav("/");
     } catch (err) {
-      // console.log("Login error:", err);
-      setError("Invalid credentials or server error");
+      setError("Kredenciale te gabuara, problem ne server");
     }
   };
 

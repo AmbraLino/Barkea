@@ -18,6 +18,8 @@ function NavBar() {
             <Nav.Link className="navbar-link" href="/contact" style={{color:"#FEFAE0"}}>Kontakt</Nav.Link>
             <Nav.Link className="navbar-link" href="/login" style={{color:"#FEFAE0"}}>Hyr</Nav.Link>
 
+            
+
 
           </Nav>
         </Navbar.Collapse>

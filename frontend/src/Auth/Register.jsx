@@ -18,17 +18,17 @@ const Register = () => {
   };
 
   const handleSubmit = async () => {
-    if (!newUser.username) return setError("Username should not be empty");
-    if (!newUser.email) return setError("Email should not be empty");
-    if (newUser.password.length < 8) return setError("Password should have at least 8 characters!");
+    if (!newUser.username) return setError("Emri nuk duhet te jete bosh");
+    if (!newUser.email) return setError("Email nuk duhet te jete bosh");
+    if (newUser.password.length < 6) return setError("Fjalekalimi duhet te kete te pakten 6 karaktere!");
 
     try {
-      const res = await axios.post('http://localhost:5000/api/users/register/', newUser);
-      console.log("User created:", res.data);
+      const res = await axios.post('http://localhost:5000/register/', newUser);
+      console.log("Perdoruesi u krijua:", res.data);
       navigate('/');
     } catch (err) {
       // console.log("User not created:", err);
-      setError("User not created");
+      setError("Perdoruesi nuk u krijua");
     }
   };
 
