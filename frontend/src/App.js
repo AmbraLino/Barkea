@@ -4,8 +4,10 @@ import Navbar from "./Base/NavBar";
 import Home from "./MainPages/Home";
 import About from "./MainPages/About";
 import Contact from "./MainPages/Contact";
+import Footer from "./Base/Footer";
 import 'leaflet/dist/leaflet.css';
-
+import Login from  "./Auth/Login";
+import Register from "./Auth/Register";
 function App() {
   return (
     <>
@@ -14,7 +16,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register/>}/>
       </Routes>
+      <Footer />
     </>
   );
 }
