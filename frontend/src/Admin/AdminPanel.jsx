@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Table, Button, Image, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import './AdminPanel.css';
+// import './AdminPanel.css';
 
 
 const AdminPanel = () => {

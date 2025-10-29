@@ -9,6 +9,12 @@ import 'leaflet/dist/leaflet.css';
 import Login from  "./Auth/Login";
 import Register from "./Auth/Register";
 import Categories from "./MainPages/Categories";
+import Create from "./Admin/Create";
+import Read from "./Admin/Read";
+import Update from "./Admin/Update";
+import AdminPanel from "./Admin/AdminPanel";
+import ProtectedRoute from './Auth/ProtectedRoute';
+import { UserContextProvider } from "./Auth/UserContext";
 function App() {
   return (
     <>
@@ -18,8 +24,19 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/categories" element={<Categories/>}/>
+        <Route path="/register" element={<Register />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/read/:id" element={<Read />} />
+        <Route path="/update/:id" element={<Update />} />
+        <Route
+          path="/adminPanel"
+          element={
+            <ProtectedRoute adminOnly>
+              <AdminPanel />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </>
