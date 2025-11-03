@@ -23,7 +23,7 @@ const Register = () => {
     if (newUser.password.length < 6) return setError("Fjalekalimi duhet te kete te pakten 6 karaktere!");
 
     try {
-      const res = await axios.post('http://localhost:5000/register/', newUser);
+      const res = await axios.post('http://localhost:5000/user/register/', newUser);
       console.log("Perdoruesi u krijua:", res.data);
       navigate('/');
     } catch (err) {

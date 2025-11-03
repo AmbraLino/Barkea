@@ -18,6 +18,7 @@ import { UserContextProvider } from "./Auth/UserContext";
 function App() {
   return (
     <>
+    <UserContextProvider>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -38,6 +39,7 @@ function App() {
           }
         />
       </Routes>
+      </UserContextProvider>
       <Footer />
     </>
   );

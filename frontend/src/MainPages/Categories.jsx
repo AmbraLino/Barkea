@@ -7,7 +7,6 @@ const Categories = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [categories, setCategories] = useState([]);
 
-  // Merr produktet nga backend
   useEffect(() => {
     const fetchProducts = async () => {
       try {
