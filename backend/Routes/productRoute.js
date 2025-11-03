@@ -2,121 +2,84 @@ const express = require("express");
 const app = express();
 const multer = require("multer");
 const path = require("path");
-const mongoose = require("mongoose");
 const productModel = require("../Models/productModel");
-const userModel = require("../Models/userModel");
+const { verifyToken, isAdmin } = require("../middleware/auth");
 
+// ✅ multer setup
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "images");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+  destination: (req, file, cb) => cb(null, "images"),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
 });
 
 const fileFilter = (req, file, cb) => {
   const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
-  if (allowedFileTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
+  cb(null, allowedFileTypes.includes(file.mimetype));
 };
 
-let upload = multer({ storage, fileFilter });
+const upload = multer({ storage, fileFilter });
 
-//Create me POST
-app.post("/addProduct", upload.single("photo"), async (req, res) => {
+// ✅ Add Product (protected by token)
+app.post("/addProduct", verifyToken, isAdmin, upload.single("photo"), async (req, res) => {
   try {
-    const userId = req.body.userId;
-    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
-      console.log("Invalid userId");
-      return res.status(400).send("Invalid userId");
-    }
+    const userId = req.user._id; // taken from verified token (cookie)
 
-    const user = await userModel.findById(userId);
-    if (!user) {
-      console.log("User not found");
-      return res.status(404).send("User not found");
-    }
-
-    if (user.role !== "admin") {
-      console.log("Access denied: only admin can create items");
-      return res.status(403).send("Access denied: only admin can create items");
-    }
-
-    let infoProduct = {
+    const newProduct = new productModel({
       ...req.body,
-      photo: req.file.filename,
+      photo: req.file?.filename || null,
       ownerProduct: userId,
-    };
+    });
 
-    const newProduct = new ProductModel(infoProduct);
     await newProduct.save();
-    console.log(newProduct);
-    res.status(200).send(newProduct);
+    res.status(200).json(newProduct);
   } catch (err) {
-    console.log(err);
-    res.status(500).send("Not added product.");
+    console.error(err);
+    res.status(500).send("Product not added.");
   }
 });
 
-//Read all me GET
+// ✅ Read all
 app.get("/reads", async (req, res) => {
   try {
-    const allProduct = await ProductModel.find({});
-    console.log(allProduct);
-    res.status(200).send(allProduct);
+    const allProducts = await productModel.find({});
+    res.status(200).json(allProducts);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).send("Products not read.");
   }
 });
 
-//Read one me GET
+// ✅ Read one
 app.get("/readOneProduct/:id", async (req, res) => {
   try {
-    let idProduct = req.params.id;
-    const oneProduct = await ProductModel.findById({ _id: idProduct });
-    console.log(oneProduct);
-    res.status(200).send(oneProduct);
+    const product = await productModel.findById(req.params.id);
+    res.status(200).json(product);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).send("Product not read.");
   }
 });
 
-//Delete me DELETE
+// ✅ Delete
 app.delete("/deleteOneProduct/:id", async (req, res) => {
   try {
-    let idProduct = req.params.id;
-    await productModel.deleteOne({ _id: idProduct });
-    console.log("Deleted product.");
+    await productModel.deleteOne({ _id: req.params.id });
     res.status(200).send("Deleted product.");
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).send("Product not deleted.");
   }
 });
 
-//Update
+// ✅ Update
 app.patch("/updateProduct/:id", upload.single("photo"), async (req, res) => {
   try {
-    let idProduct = req.params.id;
-    let infoProduct = { ...req.body };
-    if (req.file) {
-      infoProduct.photo = req.file.filename;
-    }
-    const updateProduct = await productModel.findByIdAndUpdate(
-      { _id: idProduct },
-      { $set: infoProduct },
-      { new: true }
-    );
-    console.log(updateProduct);
-    res.status(200).send(updateProduct);
+    const infoProduct = { ...req.body };
+    if (req.file) infoProduct.photo = req.file.filename;
+
+    const updated = await productModel.findByIdAndUpdate(req.params.id, { $set: infoProduct }, { new: true });
+    res.status(200).json(updated);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).send("Product not updated.");
   }
 });
