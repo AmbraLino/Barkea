@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");
 const path = require("path");
+const cookieParser = require('cookie-parser');
 const userApp = require ("./Routes/userRoute")
 const contactApp = require("./Routes/contactRoute");
 
@@ -26,7 +27,7 @@ app.use(contactApp);
 app.use(userApp);
 // Routes
 
-const contactApp = require("./Routes/contactRoute");
+
 app.use("/", contactApp);
 const userRoute = require("./Routes/userRoute");
 const adminRoute = require("./Routes/adminRoute");
