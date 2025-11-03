@@ -8,38 +8,69 @@ const Create = ({ addCategory }) => {
     category: "",
     photo: null,
     price: "",
-    userId: "PUT_ADMIN_USERID_HERE" 
+    // userId: "PUT_ADMIN_USERID_HERE" 
   });
 
   const handleChange = (e) => setProduct({ ...product, [e.target.name]: e.target.value });
   const handleFile = (e) => setProduct({ ...product, photo: e.target.files[0] });
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (!product.photo || !product.name || !product.category || !product.price) {
+  //     return alert("Ju duhet të plotësoni të gjitha fushat!");
+  //   }
+
+  //   const formData = new FormData();
+  //   formData.append("name", product.name);
+  //   formData.append("category", product.category);
+  //   formData.append("price", product.price);
+  //   formData.append("photo", product.photo);
+  //   // formData.append("userId", product.userId);
+
+  //   try {
+  //     const res = await axios.post(
+  //       "http://localhost:5000/addProduct",
+  //       formData,
+  //       { headers: { "Content-Type": "multipart/form-data" },withCredentials: true, }
+  //     );
+  //     addCategory(res.data);
+  //     setProduct({ name: "", category: "", photo: null, price: "", userId: product.userId });
+  //     console.log("Produkti u shtua me sukses");
+  //   } catch (err) {
+  //     console.log("Ndodhi një gabim, produkti nuk u shtua:", err.response?.data || err);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!product.photo || !product.name || !product.category || !product.price) {
-      return alert("Ju duhet të plotësoni të gjitha fushat!");
-    }
+  e.preventDefault();
+  if (!product.photo || !product.name || !product.category || !product.price) {
+    return alert("Ju duhet të plotësoni të gjitha fushat!");
+  }
 
-    const formData = new FormData();
-    formData.append("name", product.name);
-    formData.append("category", product.category);
-    formData.append("price", product.price);
-    formData.append("photo", product.photo);
-    formData.append("userId", product.userId);
+  const formData = new FormData();
+  formData.append("name", product.name);
+  formData.append("category", product.category);
+  formData.append("price", product.price);
+  formData.append("photo", product.photo);
 
-    try {
-      const res = await axios.post(
-        "http://localhost:5000/addProduct",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-      addCategory(res.data);
-      setProduct({ name: "", category: "", photo: null, price: "", userId: product.userId });
-      console.log("Produkti u shtua me sukses");
-    } catch (err) {
-      console.log("Ndodhi një gabim, produkti nuk u shtua:", err.response?.data || err);
-    }
-  };
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/addProduct",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      }
+    );
+
+    setProduct({ name: "", category: "", photo: null, price: "" });
+    console.log("Produkti u shtua me sukses:", res.data);
+    alert("Produkti u shtua me sukses!");
+  } catch (err) {
+    console.log("Ndodhi një gabim, produkti nuk u shtua:", err.response?.data || err);
+  }
+};
+
 
   return (
     <Container className="create-container">
