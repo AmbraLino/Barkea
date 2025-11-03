@@ -25,7 +25,7 @@ const Create = ({ addCategory }) => {
     formData.append("category", product.category);
     formData.append("price", product.price);
     formData.append("photo", product.photo);
-    formData.append("userId", product.userId);
+    // formData.append("userId", product.userId);
 
     try {
       const res = await axios.post(
