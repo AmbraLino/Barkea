@@ -102,7 +102,7 @@ function NavBar() {
             <Nav.Link href="/about" style={{ color: "#FEFAE0" }}>Përreth Nesh</Nav.Link>
             <Nav.Link href="/contact" style={{ color: "#FEFAE0" }}>Kontakt</Nav.Link>
 
-            {!userInfo ? (
+            {/* {!userInfo ? (
               <Nav.Link href="/login" style={{ color: "#FEFAE0" }}>Hyr</Nav.Link>
             ) : (
               <Dropdown align="end">
@@ -128,7 +128,48 @@ function NavBar() {
                   </Button>
                 </Dropdown.Menu>
               </Dropdown>
+            )} */}
+
+
+            {!userInfo ? (
+              <Nav.Link href="/login" style={{ color: "#FEFAE0" }}>Hyr</Nav.Link>
+            ) : (
+              <>
+                {/* ✅ Vetëm për admin */}
+                {userInfo.role === "admin" && (
+                  <>
+                    <Nav.Link href="/create" style={{ color: "#FEFAE0" }}>Create</Nav.Link>
+                    <Nav.Link href="/adminPanel" style={{ color: "#FEFAE0" }}>Admin Panel</Nav.Link>
+                  </>
+                )}
+
+                {/* Dropdown për user info dhe logout */}
+                <Dropdown align="end">
+                  <Dropdown.Toggle variant="light">
+                    <FaUserCircle size={25} /> {userInfo.username}
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu style={{ minWidth: "200px" }}>
+                    <Dropdown.ItemText>
+                      <strong>Username:</strong> {userInfo.username}
+                    </Dropdown.ItemText>
+                    <Dropdown.ItemText>
+                      <strong>Email:</strong> {userInfo.email}
+                    </Dropdown.ItemText>
+                    <Dropdown.Divider />
+                    <Button
+                      variant="outline-dark"
+                      size="sm"
+                      onClick={handleLogout}
+                      className="w-100"
+                    >
+                      Logout
+                    </Button>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </>
             )}
+
           </Nav>
         </Navbar.Collapse>
       </Container>

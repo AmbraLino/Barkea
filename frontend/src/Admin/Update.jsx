@@ -10,6 +10,7 @@ const Update = () => {
   const [element, setElement] = useState({
     name: "",
     description: "",
+    price: "",
     photo: "",
   });
 
@@ -18,7 +19,8 @@ const Update = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/products/findOneProduct/${id}`);
+        // const res = await axios.get(`http://localhost:5000/products/findOneProduct/${id}`);
+        const res = await axios.get(`http://localhost:5000/product/readOneProduct/${id}`);
         setElement(res.data);
       } catch (err) {
         console.log("Nuk u lexua: " + err);
@@ -55,13 +57,15 @@ const Update = () => {
     }
 
     try {
-      await axios.put(`http://localhost:5000/updateProduct/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      console.log("Producti u perditsua");
+      // await axios.put(`http://localhost:5000/updateProduct/${id}`, formData, {
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // });
+      await axios.patch(`http://localhost:5000/product/updateProduct/${id}`, 
+        formData, { headers: { "Content-Type": "multipart/form-data" }, });
+      console.log("Produkti u perditesua");
       navigate("/adminPanel");
     } catch (err) {
-      console.log("Produkti nuk u perditsua: " + err);
+      console.log("Produkti nuk u perditesua: " + err);
     }
   };
 
@@ -86,7 +90,7 @@ const Update = () => {
 
         <Button variant="warning" type="submit">Perditeso </Button>
       </Form>
-
+       
       {uploadedImage ? (
         <img
           src={uploadedImage}
