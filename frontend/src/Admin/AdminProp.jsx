@@ -8,6 +8,7 @@ const AdminProp = ({ _id, name, description, photo, price, category }) => {
   const { id } = useParams();
   const navItem = useNavigate();
   const [element, setElement] = useState({});
+  
   const handleDelete = async (id) => {
     await axios
       .delete("http://localhost:5000/deleteOneProduct/" + id)
