@@ -12,7 +12,7 @@ const AdminPanel = () => {
   useEffect(() => {
     const dbInfos = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/readOneProduct");
+        const res = await axios.get("http://localhost:5000/product/reads");
         setInfos(res.data);
       } catch (err) {
         console.log("Nuk u lexua: " + err);
@@ -25,7 +25,7 @@ const AdminPanel = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("A jeni i sigurt qe doni ta fshini kete produkt?")) return;
     try {
-      await axios.delete(`http://localhost:5000/deleteOneProduct/${id}`);
+      await axios.delete(`http://localhost:5000/product/deleteOneProduct/${id}`);
       setInfos(infos.filter((info) => info._id !== id));
       console.log("Proukti u fshi me sukses");
     } catch (err) {
@@ -46,9 +46,9 @@ const AdminPanel = () => {
         <Link to="/create">
           <Button  style={{ backgroundColor: "#400f0fff", borderColor: "#2b0a0aff" }} >Create a new Product</Button>
         </Link>
-        <Link to="/read">
+        {/* <Link to="/read">
           <Button style={{ backgroundColor: "#400f0fff", borderColor: "#2b0a0aff" }}>Read Products</Button>
-        </Link>
+        </Link> */}
         <Form.Control
           type="text"
           placeholder="Kerko ketu..."
@@ -74,9 +74,9 @@ const AdminPanel = () => {
               <tr key={info._id}>
                 <td>{info._id}</td>
                 <td>
-                  {info.image && (
+                  {info.photo && (
                     <Image
-                      src={`http://localhost:5000/${info.image}`}
+                      src={`http://localhost:5000/Images/${info.photo}`}
                       alt={info.name}
                       thumbnail
                       style={{ width: "80px", height: "80px", objectFit: "cover" }}

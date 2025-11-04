@@ -29,7 +29,7 @@ function App() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/create" element={<Create />} />
         <Route path="/read/:id" element={<Read />} />
-        <Route path="/update/:id" element={<Update />} />
+        <Route path="/updateProduct/:id" element={<Update />} />
         <Route
           path="/adminPanel"
           element={

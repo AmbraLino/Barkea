@@ -5,7 +5,6 @@ const path = require("path");
 const productModel = require("../Models/productModel");
 const { verifyToken, isAdmin } = require("../middleware/auth");
 
-// ✅ multer setup
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "Images");
@@ -24,10 +23,9 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage, fileFilter });
 
-// ✅ Add Product (protected by token)
 app.post("/addProduct", verifyToken, isAdmin, upload.single("photo"), async (req, res) => {
   try {
-    const userId = req.user._id; // taken from verified token (cookie)
+    const userId = req.user._id; 
 
     const newProduct = new productModel({
       ...req.body,
@@ -43,7 +41,6 @@ app.post("/addProduct", verifyToken, isAdmin, upload.single("photo"), async (req
   }
 });
 
-// ✅ Read all
 app.get("/reads", async (req, res) => {
   try {
     const allProducts = await productModel.find({});
@@ -54,7 +51,6 @@ app.get("/reads", async (req, res) => {
   }
 });
 
-// ✅ Read one
 app.get("/readOneProduct/:id", async (req, res) => {
   try {
     const product = await productModel.findById(req.params.id);
@@ -65,7 +61,6 @@ app.get("/readOneProduct/:id", async (req, res) => {
   }
 });
 
-// ✅ Delete
 app.delete("/deleteOneProduct/:id", async (req, res) => {
   try {
     await productModel.deleteOne({ _id: req.params.id });
@@ -76,7 +71,6 @@ app.delete("/deleteOneProduct/:id", async (req, res) => {
   }
 });
 
-// ✅ Update
 app.patch("/updateProduct/:id", upload.single("photo"), async (req, res) => {
   try {
     const infoProduct = { ...req.body };

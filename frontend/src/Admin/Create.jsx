@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button, Container } from "react-bootstrap";
-
+import { useNavigate } from "react-router-dom";
 const Create = ({ addCategory }) => {
+  const navigate = useNavigate();
   const [product, setProduct] = useState({
     name: "",
     category: "",
@@ -55,7 +56,7 @@ const Create = ({ addCategory }) => {
 
   try {
     const res = await axios.post(
-      "http://localhost:5000/addProduct",
+      "http://localhost:5000/product/addProduct",
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
@@ -66,6 +67,7 @@ const Create = ({ addCategory }) => {
     setProduct({ name: "", category: "", photo: null, price: "" });
     console.log("Produkti u shtua me sukses:", res.data);
     alert("Produkti u shtua me sukses!");
+    navigate("/categories");
   } catch (err) {
     console.log("Ndodhi një gabim, produkti nuk u shtua:", err.response?.data || err);
   }
