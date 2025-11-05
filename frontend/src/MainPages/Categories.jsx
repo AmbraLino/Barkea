@@ -10,7 +10,8 @@ const Categories = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/items");
+        // const res = await axios.get("http://localhost:5000/api/items");
+        const res = await axios.get("http://localhost:5000/product/reads");
         const items = res.data || [];
         setProducts(items);
 
@@ -51,7 +52,7 @@ const Categories = () => {
           <Col md={4} key={item._id} className="mb-4">
             <Card className="h-100 border-0 shadow-sm">
               <Card.Img
-                src={`http://localhost:5000/images/${item.image}`}
+                src={`http://localhost:5000/Images/${item.photo}`}
                 style={{ height: 250, objectFit: "cover" }}
               />
               <Card.Body>
@@ -67,3 +68,5 @@ const Categories = () => {
 };
 
 export default Categories;
+
+ // src={`http://localhost:5000/images/${item.photo}`} ishte image jo photo dhe images me I te madhe

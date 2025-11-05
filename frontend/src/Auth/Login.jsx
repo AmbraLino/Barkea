@@ -142,7 +142,7 @@ const Login = () => {
       setUserInfo(userRes.data);
 
       // 3️⃣ Redirect sipas role
-      if (userRes.data.role === "admin") navigate("/create");
+      if (userRes.data.role === "admin") navigate("/adminPanel");
       else navigate("/");
 
     } catch (err) {
