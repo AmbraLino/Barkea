@@ -41,7 +41,7 @@ app.post("/addProduct", verifyToken, isAdmin, upload.single("photo"), async (req
     res.status(200).json(newProduct);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Product not added.");
+    res.status(500).send("Produkti nuk u shtua.");
   }
 });
 
@@ -95,7 +95,7 @@ app.patch("/updateProduct/:id", upload.single("photo"), async (req, res) => {
     res.status(200).json(updated);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Product not updated.");
+    res.status(500).send("Produkti nuk u perditesua.");
   }
 });
 

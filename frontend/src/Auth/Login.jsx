@@ -127,21 +127,18 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      // 1️⃣ Login POST
       await axios.post(
         "http://localhost:5000/user/login",
         { email, password },
-        { withCredentials: true } // ruan cookie
+        { withCredentials: true } 
       );
 
-      // 2️⃣ Merr user info nga cookie
       const userRes = await axios.get("http://localhost:5000/user", {
         withCredentials: true,
       });
 
       setUserInfo(userRes.data);
 
-      // 3️⃣ Redirect sipas role
       if (userRes.data.role === "admin") navigate("/adminPanel");
       else navigate("/");
 
