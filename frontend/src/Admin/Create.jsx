@@ -54,7 +54,7 @@ const Create = ({ addCategory }) => {
       setPreview(null);
       console.log("Produkti u shtua me sukses:", res.data);
       alert("Produkti u shtua me sukses!");
-      navigate("/categories");
+      // navigate("/categories");
     } catch (err) {
       console.log(
         "Ndodhi nje gabim, produkti nuk u shtua:",

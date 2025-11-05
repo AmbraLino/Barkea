@@ -82,7 +82,9 @@ app.use(session({
   cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }));
 
-app.use("/images", express.static(path.join(__dirname, "images")));
+// app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/Images", express.static(path.join(__dirname, "Images")));
+
 
 app.use("/user", userApp);
 app.use("/contact", contactApp);
