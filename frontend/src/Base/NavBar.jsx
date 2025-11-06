@@ -135,15 +135,15 @@ function NavBar() {
               <Nav.Link href="/login" style={{ color: "#FEFAE0" }}>Hyr</Nav.Link>
             ) : (
               <>
-                {/* ✅ Vetëm për admin */}
+                {/* Vtm admini */}
                 {userInfo.role === "admin" && (
                   <>
-                    <Nav.Link href="/create" style={{ color: "#FEFAE0" }}>Create</Nav.Link>
-                    <Nav.Link href="/adminPanel" style={{ color: "#FEFAE0" }}>Admin Panel</Nav.Link>
+                    {/* <Nav.Link href="/create" style={{ color: "#FEFAE0" }}>Create</Nav.Link> */}
+                    <Nav.Link href="/adminPanel" style={{ color: "#FEFAE0" }}>Paneli i adminit</Nav.Link>
                   </>
                 )}
 
-                {/* Dropdown për user info dhe logout */}
+                {/* Dropdown per logout */}
                 <Dropdown align="end">
                   <Dropdown.Toggle variant="light">
                     <FaUserCircle size={25} /> {userInfo.username}
@@ -163,7 +163,7 @@ function NavBar() {
                       onClick={handleLogout}
                       className="w-100"
                     >
-                      Logout
+                     Dil nga llogaria
                     </Button>
                   </Dropdown.Menu>
                 </Dropdown>

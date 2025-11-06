@@ -25,16 +25,17 @@ const upload = multer({ storage, fileFilter });
 
 app.post("/addProduct", verifyToken, isAdmin, upload.single("photo"), async (req, res) => {
   try {
-    const userId = req.user._id; 
+    const userId = req.user._id;
 
     const newProduct = new productModel({
-      ...req.body,
       name: req.body.name,
-      // description: req.body.description,
+      description: req.body.description,
       price: req.body.price,
       category: req.body.category,
+      siperfaqja: req.body.siperfaqja,
+      vendndohja: req.body.vendndodhja,
       photo: req.file?.filename || null,
-      ownerProduct: userId,
+      ownerItem: userId,
     });
 
     await newProduct.save();
@@ -44,6 +45,7 @@ app.post("/addProduct", verifyToken, isAdmin, upload.single("photo"), async (req
     res.status(500).send("Produkti nuk u shtua.");
   }
 });
+
 
 app.get("/reads", async (req, res) => {
   try {
@@ -80,23 +82,27 @@ app.patch("/updateProduct/:id", upload.single("photo"), async (req, res) => {
     const infoProduct = { ...req.body };
     if (req.file) infoProduct.photo = req.file.filename;
 
-    // const updated = await productModel.findByIdAndUpdate(req.params.id, { $set: infoProduct }, { new: true });
-    const updated = await productModel.findByIdAndUpdate(
-   req.params.id,
-   { 
-     name: infoProduct.name,
-     description: infoProduct.description,
-     price: infoProduct.price,
-     category: infoProduct.category,
-     ...(infoProduct.photo && { photo: infoProduct.photo }) 
-   },
-   { new: true }
- );
+const updated = await productModel.findByIdAndUpdate(
+  req.params.id,
+  { 
+    name: infoProduct.name,
+    description: infoProduct.description,
+    siperfaqja: infoProduct.siperfaqja,
+    vendndohja: infoProduct.vendndodhja,
+    price: infoProduct.price,
+    category: infoProduct.category,
+    ...(infoProduct.photo && { photo: infoProduct.photo }) 
+  },
+  { new: true }
+);
+
+
     res.status(200).json(updated);
   } catch (err) {
     console.error(err);
     res.status(500).send("Produkti nuk u perditesua.");
   }
 });
+
 
 module.exports = app;
