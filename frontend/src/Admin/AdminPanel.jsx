@@ -44,7 +44,7 @@ const AdminPanel = () => {
 
       <div className="d-flex gap-2 mb-3">
         <Link to="/create">
-          <Button  style={{ backgroundColor: "#400f0fff", borderColor: "#2b0a0aff" }} >Create a new Product</Button>
+          <Button  style={{ backgroundColor: "#185816ff", borderColor: "#2b0a0aff" }} >Krijo nje produkt te ri</Button>
         </Link>
         {/* <Link to="/read">
           <Button style={{ backgroundColor: "#400f0fff", borderColor: "#2b0a0aff" }}>Read Products</Button>

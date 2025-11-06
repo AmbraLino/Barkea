@@ -7,11 +7,14 @@ import "./Create.css";
 const Create = ({ addCategory }) => {
   const navigate = useNavigate();
   const [product, setProduct] = useState({
-    name: "",
-    category: "",
-    photo: null,
-    price: "",
-  });
+  name: "",
+  category: "",
+  description: "",
+  siperfaqja: "",
+  vendndohja: "",
+  photo: null,
+  price: "",
+});
   const [preview, setPreview] = useState(null);
 
   const handleChange = (e) =>
@@ -39,6 +42,9 @@ const Create = ({ addCategory }) => {
     formData.append("category", product.category);
     formData.append("price", product.price);
     formData.append("photo", product.photo);
+formData.append("description", product.description);
+formData.append("siperfaqja", product.siperfaqja);
+formData.append("vendndohja", product.vendndohja);
 
     try {
       const res = await axios.post(
@@ -99,6 +105,41 @@ const Create = ({ addCategory }) => {
                     placeholder="Shkruaj kategorinë"
                   />
                 </Form.Group>
+
+                <Form.Group controlId="Description" className="mb-3">
+  <Form.Label>Përshkrimi</Form.Label>
+  <Form.Control
+    as="textarea"
+    rows={3}
+    name="description"
+    value={product.description}
+    onChange={handleChange}
+    placeholder="Shkruaj përshkrimin e produktit"
+  />
+</Form.Group>
+
+<Form.Group controlId="Siperfaqja" className="mb-3">
+  <Form.Label>Sipërfaqja</Form.Label>
+  <Form.Control
+    type="text"
+    name="siperfaqja"
+    value={product.siperfaqja}
+    onChange={handleChange}
+    placeholder="P.sh. 120 m²"
+  />
+</Form.Group>
+
+<Form.Group controlId="Vendndohja" className="mb-3">
+  <Form.Label>Vendndodhja</Form.Label>
+  <Form.Control
+    type="text"
+    name="vendndohja"
+    value={product.vendndohja}
+    onChange={handleChange}
+    placeholder="P.sh. Tiranë, Shqipëri"
+  />
+</Form.Group>
+
 
                 <Form.Group controlId="Photo" className="mb-3">
                   <Form.Label>Foto</Form.Label>
