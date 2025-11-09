@@ -1,71 +1,144 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Table, Button, Container } from "react-bootstrap";
+import React, { useState } from "react";
+// import "./Agjent.css";
 
-const AgentPanel = () => {
-  const [orders, setOrders] = useState([]);
+const Agjent = () => {
+  const [orders, setOrders] = useState([
+    {
+      id: 1,
+      klienti: "Sara Hoxha",
+      prona: "Apartament 2+1, Tirane",
+      data: "09/11/2025",
+      ora: "14:00",
+      status: "Në pritje",
+      mesazh: "",
+    },
+    {
+      id: 2,
+      klienti: "Arben Dervishi",
+      prona: "Vilë, Durrës",
+      data: "10/11/2025",
+      ora: "10:30",
+      status: "Pranuar",
+      mesazh: "",
+    },
+  ]);
 
-  const fetchOrders = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/order/all", { withCredentials: true });
-      setOrders(res.data);
-    } catch (err) {
-      console.error("Gabim gjatë marrjes së rezervimeve:", err.response?.data || err);
-    }
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [refuseMsg, setRefuseMsg] = useState("");
+
+  const handleStatusChange = (id, newStatus) => {
+    setOrders((prev) =>
+      prev.map((order) =>
+        order.id === id ? { ...order, status: newStatus } : order
+      )
+    );
   };
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
+  const handleRefuseClick = (order) => {
+    setSelectedOrder(order);
+    setShowPopup(true);
+  };
 
-  const confirmOrder = async (id) => {
-    try {
-      await axios.patch(`http://localhost:5000/order/confirm/${id}`, {}, { withCredentials: true });
-      fetchOrders(); 
-    } catch (err) {
-      console.error("Gabim gjatë konfirmimit:", err.response?.data || err);
-    }
+  const sendRefusal = () => {
+    setOrders((prev) =>
+      prev.map((order) =>
+        order.id === selectedOrder.id
+          ? { ...order, status: "Refuzuar", mesazh: refuseMsg }
+          : order
+      )
+    );
+    setRefuseMsg("");
+    setShowPopup(false);
   };
 
   return (
-    <Container className="mt-4">
-      <h2>Paneli i Agjentit - Rezervimet</h2>
-      <Table striped bordered hover responsive className="mt-3">
+    <div className="agjent-page">
+      <h2>Paneli i Agjentit</h2>
+      <table className="orders-table">
         <thead>
           <tr>
-            <th>Produkt</th>
-            <th>User</th>
+            <th>Klienti</th>
+            <th>Prona</th>
             <th>Data</th>
             <th>Ora</th>
-            <th>Status</th>
+            <th>Statusi</th>
             <th>Veprime</th>
           </tr>
         </thead>
         <tbody>
           {orders.map((order) => (
-            <tr key={order._id}>
-              <td>{order.product?.name}</td>
-              <td>{order.user?.name}</td>
-              <td>{order.date}</td>
-              <td>{order.time}</td>
-              <td>{order.status}</td>
+            <tr key={order.id}>
+              <td>{order.klienti}</td>
+              <td>{order.prona}</td>
+              <td>{order.data}</td>
+              <td>{order.ora}</td>
               <td>
-                {order.status === "pending" && (
-                  <Button
-                    variant="success"
-                    size="sm"
-                    onClick={() => confirmOrder(order._id)}
-                  >
-                    Konfirmo
-                  </Button>
-                )}
+                <select
+                  value={order.status}
+                  onChange={(e) =>
+                    handleStatusChange(order.id, e.target.value)
+                  }
+                >
+                  <option>Në pritje</option>
+                  <option>Pranuar</option>
+                  <option>Refuzuar</option>
+                  <option>Përfunduar</option>
+                </select>
+              </td>
+              <td>
+                <button
+                  onClick={() => handleStatusChange(order.id, "Pranuar")}
+                  className="btn accept"
+                >
+                  ✅ Prano
+                </button>
+                <button
+                  onClick={() => handleRefuseClick(order)}
+                  className="btn refuse"
+                >
+                  ❌ Refuzo & Mesazh
+                </button>
+                <button
+                  onClick={() => handleStatusChange(order.id, "Në pritje")}
+                  className="btn pending"
+                >
+                  ⏳ Në pritje
+                </button>
+                <button
+                  onClick={() => handleStatusChange(order.id, "Përfunduar")}
+                  className="btn done"
+                >
+                  🏁 Përfunduar
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
-    </Container>
+      </table>
+
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <h3>Shkruaj mesazhin e refuzimit</h3>
+            <textarea
+              value={refuseMsg}
+              onChange={(e) => setRefuseMsg(e.target.value)}
+              placeholder="Shkruaj arsyen e refuzimit..."
+            />
+            <div className="popup-buttons">
+              <button onClick={sendRefusal} className="btn confirm">
+                Dërgo
+              </button>
+              <button onClick={() => setShowPopup(false)} className="btn cancel">
+                Anulo
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default AgentPanel;
+export default Agjent;
