@@ -134,6 +134,7 @@ const adminApp = require("./Routes/adminRoute");
 const agentApp = require("./Routes/agentRoute");
 const productApp = require("./Routes/productRoute");
 const orderApp = require("./Routes/orderRoute"); 
+const agentOrderRoute = require("./Routes/agentOrderRoute");
 const app = express();
 
 // Middleware
@@ -157,9 +158,10 @@ app.use("/Images", express.static(path.join(__dirname, "Images")));
 app.use("/user", userApp);
 app.use("/contact", contactApp);
 app.use("/admin", adminApp);
-app.use("/agent", agentApp);
+// app.use("/agent", agentApp);
 app.use("/product", productApp);
 app.use("/order", orderApp);
+app.use("/agent", agentOrderRoute);
 
 mongoose.connect(
   "mongodb+srv://deeexh1:Cokollate10@cluster0.0gkrdox.mongodb.net/Cluster0?retryWrites=true&w=majority&appName=Cluster0",
@@ -170,3 +172,4 @@ mongoose.connect(
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
