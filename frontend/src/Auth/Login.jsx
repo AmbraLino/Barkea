@@ -250,28 +250,23 @@ const Login = () => {
     const navigate = useNavigate();
     const { setUserInfo } = useContext(UserContext);
 
-    // Kjo funksion ka fokusin kryesor në zgjidhjen e gabimit 400 dhe 401
-   const handleLogin = async () => {
+    const handleLogin = async () => {
   if (!email || !password) {
     setError("Ju lutem plotësoni email dhe fjalëkalimin");
     return;
   }
 
   try {
-    // Login
     await axios.post(
       "http://localhost:5000/user/login",
       { email, password },
       { withCredentials: true }
     );
-
-    // Merr të dhënat e përdoruesit
     const userRes = await axios.get("http://localhost:5000/user", { withCredentials: true });
     setUserInfo(userRes.data);
 
-    // Ridrejto bazuar në rol
-    if (userRes.data.role === "agent" && userRes.data.email === "agjent@barkea.com") {
-      navigate("/agentPanel");
+    if (userRes.data.role === "agent") {
+      navigate("/agjentPanel");
     } else if (userRes.data.role === "admin") {
       navigate("/adminPanel");
     } else {

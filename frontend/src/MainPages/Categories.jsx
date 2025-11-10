@@ -204,13 +204,12 @@ const Categories = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [reserveData, setReserveData] = useState({ date: "", time: "" });
 
-  // Filtrat
   const [priceRange, setPriceRange] = useState([0, 9999]);
   const [locationFilter, setLocationFilter] = useState("");
   const [areaMin, setAreaMin] = useState("");
   const [areaMax, setAreaMax] = useState("");
 
-  // Marrja e produkteve
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -227,7 +226,6 @@ const Categories = () => {
     fetchProducts();
   }, []);
 
-  // Filtrimi automatik
   useEffect(() => {
     let filtered = [...allProducts];
 
@@ -286,7 +284,6 @@ const Categories = () => {
 
   return (
     <>
-      {/* Kategori horizontal */}
       <Nav variant="tabs" className="mt-3 justify-content-start">
         <Nav.Item>
           <Nav.Link
@@ -309,12 +306,10 @@ const Categories = () => {
       </Nav>
 
       <Row className="mt-4">
-        {/* Filtrat */}
         <Col md={3}>
           <div className="p-3 border rounded shadow-sm bg-light filters-box">
             <h5 className="mb-3 text-success fw-bold">Filtra</h5>
 
-            {/* Çmimi */}
             <div className="mb-4">
               <label className="fw-bold d-block mb-1">Çmimi (€)</label>
               <small className="text-muted d-block mb-2">
@@ -342,7 +337,6 @@ const Categories = () => {
               />
             </div>
 
-            {/* Vendndodhja */}
             <div className="mb-4">
               <label className="fw-bold d-block mb-1">Vendndodhja</label>
               <Form.Control
@@ -353,7 +347,6 @@ const Categories = () => {
               />
             </div>
 
-            {/* Sipërfaqja */}
             <div className="mb-4">
               <label className="fw-bold d-block mb-1">Sipërfaqja (m²)</label>
               <div className="d-flex gap-2">
@@ -382,7 +375,6 @@ const Categories = () => {
           </div>
         </Col>
 
-        {/* Produktet */}
         <Col md={9}>
           <Row className="mt-2">
             {products.length > 0 ? (
@@ -410,9 +402,11 @@ const Categories = () => {
                           <strong>Sipërfaqja:</strong> {item.siperfaqja} m²
                         </Card.Text>
                       )}
+                      {item.vendndodhja &&(
                       <Card.Text>
                         <strong>Vendndodhja:</strong> {item.vendndodhja}
                       </Card.Text>
+                    )}
                       <Button
                         className="btn-reserve"
                         onClick={() => setSelectedProduct(item)}
@@ -430,7 +424,6 @@ const Categories = () => {
         </Col>
       </Row>
 
-      {/* Modal për rezervim */}
       {selectedProduct && (
         <Modal show={true} onHide={() => setSelectedProduct(null)}>
           <Modal.Header closeButton>

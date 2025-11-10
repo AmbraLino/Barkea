@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import "./Agjent.css";
 
-const Agjent = () => {
+const AgjentPanel = () => {
   const [orders, setOrders] = useState([
     {
       id: 1,
@@ -91,25 +91,25 @@ const Agjent = () => {
                   onClick={() => handleStatusChange(order.id, "Pranuar")}
                   className="btn accept"
                 >
-                  ✅ Prano
+                   Prano
                 </button>
                 <button
                   onClick={() => handleRefuseClick(order)}
                   className="btn refuse"
                 >
-                  ❌ Refuzo & Mesazh
+                   Refuzo & Mesazh
                 </button>
                 <button
                   onClick={() => handleStatusChange(order.id, "Në pritje")}
                   className="btn pending"
                 >
-                  ⏳ Në pritje
+                   Në pritje
                 </button>
                 <button
                   onClick={() => handleStatusChange(order.id, "Përfunduar")}
                   className="btn done"
                 >
-                  🏁 Përfunduar
+                   Përfunduar
                 </button>
               </td>
             </tr>
@@ -141,4 +141,4 @@ const Agjent = () => {
   );
 };
 
-export default Agjent;
+export default AgjentPanel;

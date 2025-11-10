@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const userModel = require("./Models/userModel"); // path to your userModel
+const userModel = require("./Models/userModel"); 
 
-// 1. Connect to MongoDB Atlas
 mongoose.connect(
   "mongodb+srv://deeexh1:Cokollate10@cluster0.0gkrdox.mongodb.net/Cluster0?retryWrites=true&w=majority&appName=Cluster0",
   { useNewUrlParser: true, useUnifiedTopology: true }
@@ -10,11 +9,9 @@ mongoose.connect(
 .then(() => console.log("MongoDB Atlas connected"))
 .catch((err) => console.log(err));
 
-// 2. Hash the password
 const salt = bcrypt.genSaltSync(10);
 const hashedPassword = bcrypt.hashSync("agjent10", salt);
 
-// 3. Create agent
 const agent = new userModel({
   username: "Agent Barkea",
   email: "agjent@barkea.com",
@@ -22,7 +19,6 @@ const agent = new userModel({
   role: "agent",
 });
 
-// 4. Save to DB
 agent.save()
   .then(() => {
     console.log("Agent created successfully!");

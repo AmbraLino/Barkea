@@ -13,7 +13,7 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
     agent: {
-      type: mongoose.Schema.Types.ObjectId, // better use id to link with Agent/User
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },

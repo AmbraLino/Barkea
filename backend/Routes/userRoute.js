@@ -229,7 +229,6 @@ const salt = bcrypt.genSaltSync(10);
 router.post("/register", async (req, res) => {
     const { username, email, password, role } = req.body;
     try {
-        // 🛠️ NDRYSHIM/SHTESË: Përdor JSON për përgjigje gabimi
         if (!username || !email || !password)
             return res.status(400).json({ message: "Plotesoni te gjitha fushat" });
         if (password.length < 6)
@@ -252,46 +251,33 @@ router.post("/register", async (req, res) => {
         res.status(500).json({ message: "Dicka shkoi gabim: " + err.message });
     }
 });
-
-// ---
-
-// LOGIN (rregulluar për përgjigje 400)
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     // 1️⃣ Validate input
     if (!email || !password) {
-        // 🛠️ NDRYSHIM/SHTESË: Përdor JSON
         return res.status(400).json({ message: "Ju lutem plotësoni email dhe fjalëkalimin" });
     }
 
     try {
-        // 2️⃣ Find user by email
         const findUser = await userModel.findOne({ email });
-        
-        // 🛠️ NDRYSHIM/SHTESË: Përdor JSON
-        if (!findUser) return res.status(400).json({ message: "Kredencialet janë gabim" }); 
 
-        // 3️⃣ Check password
+        if (!findUser) return res.status(400).json({ message: "Kredencialet janë gabim" }); 
         const passOk = bcrypt.compareSync(password, findUser.password);
-        
-        // 🛠️ NDRYSHIM/SHTESË: Përdor JSON
         if (!passOk) return res.status(400).json({ message: "Kredencialet janë gabim" });
 
-        // 4️⃣ Generate JWT token (expires in 1 day)
         const token = jwt.sign(
             { id: findUser._id, role: findUser.role },
             secret,
             { expiresIn: "1d" }
         );
 
-        // 5️⃣ Set cookie and return role
         res
             .cookie("token", token, {
                 httpOnly: true,
-                maxAge: 1000 * 60 * 60 * 24, // 1 day
+                maxAge: 1000 * 60 * 60 * 24,
                 sameSite: "Lax", 
-                secure: false, // false for http
+                secure: false, 
             })
             .status(200)
             .json({ role: findUser.role, username: findUser.username, email: findUser.email });
@@ -301,17 +287,11 @@ router.post("/login", async (req, res) => {
     }
 });
 
-// ---
-
-// GET USER FROM COOKIE (rruga e autorizuar: /user)
 router.get("/", async (req, res) => {
     const token = req.cookies.token;
-    
-    // Kthe 401 nëse nuk ka token
     if (!token) return res.status(401).json({ message: "No token provided" });
 
     jwt.verify(token, secret, {}, async (err, decoded) => {
-        // Kthe 403 nëse tokeni është i pavlefshëm
         if (err) return res.status(403).json({ message: "Invalid token" });
         
         try {
@@ -326,9 +306,6 @@ router.get("/", async (req, res) => {
     });
 });
 
-// ---
-
-// LOGOUT
 router.post("/logout", (req, res) => {
     res.clearCookie("token", {
         httpOnly: true,

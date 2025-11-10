@@ -1,4 +1,4 @@
-// seedAgent.js
+
 const mongoose = require("mongoose");
 const User = require("./Models/userModel"); 
 const bcrypt = require("bcrypt");
