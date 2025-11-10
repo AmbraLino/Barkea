@@ -15,10 +15,8 @@ import Update from "./Admin/Update";
 import AdminPanel from "./Admin/AdminPanel";
 import ProtectedRoute from './Auth/ProtectedRoute';
 import { UserContextProvider } from "./Auth/UserContext";
-import AgentPanel from "./Agjent/AgentPanel"; 
-import AgentRoute from "./Auth/AgentRoute";
-
-
+import AgjentPanel from "./Agjent/AgjentPanel"; 
+import AgjentRoute from "./Auth/AgjentRoute";
 function App() {
   return (
     <>
@@ -44,16 +42,11 @@ function App() {
             </ProtectedRoute>
           }
         />
-
-            <Route
-  path="/agentPanel"
-  element={
-    <AgentRoute>
-      <AgentPanel />
-    </AgentRoute>
-  }
-
-        />
+<Route path="/agjentPanel" element={
+  <AgjentRoute>
+    <AgjentPanel />
+  </AgjentRoute>
+} />
 
       </Routes>
       </UserContextProvider>

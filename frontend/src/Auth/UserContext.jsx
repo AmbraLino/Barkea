@@ -46,7 +46,7 @@ export const UserContextProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         const res = await axios.get("http://localhost:5000/user", {
-          withCredentials: true, // dërgon cookie
+          withCredentials: true,
         });
         setUserInfo(res.data);
       } catch (err) {

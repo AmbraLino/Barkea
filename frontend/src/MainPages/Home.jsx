@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Carousel from "react-bootstrap/Carousel";
@@ -115,8 +116,9 @@ const Home = () => {
             style={{ width: "22rem" }}
           >
             <img src={card.img} alt={card.title} className="card-img-top home-img" />
-            <div className="overlay">Eksploro</div>
-            <div className="card-body">
+<Link className="overlay" to="/categories">
+  Eksploro
+</Link>            <div className="card-body">
               <h3 className="home-h fw-bold fs-4">{card.title}</h3>
               <p className="home-p fs-6">{card.desc}</p>
             </div>
