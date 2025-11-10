@@ -150,11 +150,8 @@ app.use(session({
   saveUninitialized: true,
   cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }));
-
-// Static folder për fotot
 app.use("/Images", express.static(path.join(__dirname, "Images")));
 
-// Routes
 app.use("/user", userApp);
 app.use("/contact", contactApp);
 app.use("/admin", adminApp);

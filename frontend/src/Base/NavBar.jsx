@@ -202,23 +202,28 @@ function NavBar() {
                     <FaUserCircle size={25} /> {userInfo.username}
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu style={{ minWidth: "200px" }}>
-                    <Dropdown.ItemText>
-                      <strong>Username:</strong> {userInfo.username}
-                    </Dropdown.ItemText>
-                    <Dropdown.ItemText>
-                      <strong>Email:</strong> {userInfo.email}
-                    </Dropdown.ItemText>
-                    <Dropdown.Divider />
-                    <Button
-                      variant="outline-dark"
-                      size="sm"
-                      onClick={handleLogout}
-                      className="w-100"
-                    >
-                      Dil nga llogaria
-                    </Button>
-                  </Dropdown.Menu>
+                <Dropdown.Menu style={{ minWidth: "200px" }}>
+  <Dropdown.Item as={Link} to="/profile">
+    Profili im
+  </Dropdown.Item>
+  <Dropdown.Divider />
+  <Dropdown.ItemText>
+    <strong>Username:</strong> {userInfo.username}
+  </Dropdown.ItemText>
+  <Dropdown.ItemText>
+    <strong>Email:</strong> {userInfo.email}
+  </Dropdown.ItemText>
+  <Dropdown.Divider />
+  <Button
+    variant="outline-dark"
+    size="sm"
+    onClick={handleLogout}
+    className="w-100"
+  >
+    Dil nga llogaria
+  </Button>
+</Dropdown.Menu>
+
                 </Dropdown>
               </>
             )}
