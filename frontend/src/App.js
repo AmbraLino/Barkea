@@ -17,6 +17,7 @@ import ProtectedRoute from './Auth/ProtectedRoute';
 import { UserContextProvider } from "./Auth/UserContext";
 import AgjentPanel from "./Agjent/AgjentPanel"; 
 import AgjentRoute from "./Auth/AgjentRoute";
+import UserProfile from "./User/UserProfile";
 function App() {
   return (
     <>
@@ -34,6 +35,8 @@ function App() {
         <Route path="/create" element={<Create />} />
         <Route path="/read/:id" element={<Read />} />
         <Route path="/updateProduct/:id" element={<Update />} />
+        <Route path="/profile" element={<UserProfile />} />
+
         <Route
           path="/adminPanel"
           element={
