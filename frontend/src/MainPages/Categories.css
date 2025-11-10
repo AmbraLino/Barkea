@@ -46,6 +46,34 @@
   border-color: #28a745 #28a745 #fff;
 }
 
+/* filtra */
+.filters-box {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.filters-box h5 {
+  color: #28a745;
+}
+
+.filters-box input[type="range"] {
+  accent-color: #28a745;
+}
+
+.filters-box input,
+.filters-box select {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.filters-box input:focus,
+.filters-box select:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+}
+
+
 @media (max-width: 768px) {
   .card-horizontal {
     flex-direction: column;

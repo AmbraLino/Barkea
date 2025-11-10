@@ -23,7 +23,16 @@ const Update = () => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`http://localhost:5000/product/readOneProduct/${id}`);
-        setElement(res.data);
+        // setElement(res.data);
+        setElement({
+        name: res.data.name || "",
+        category: res.data.category || "",  // siguro vlerë
+        description: res.data.description || "",
+        siperfaqja: res.data.siperfaqja || "",
+        vendndodhja: res.data.vendndodhja || "",
+        price: res.data.price || "",
+        photo: res.data.photo || "",
+      });
       } catch (err) {
         console.log("Nuk u lexua: " + err);
       }
@@ -49,7 +58,7 @@ const Update = () => {
     formData.append("name", element.name);
     formData.append("description", element.description);
     formData.append("siperfaqja", element.siperfaqja);
-    formData.append("vendndohja", element.vendndodhja);
+    formData.append("vendndodhja", element.vendndodhja);
     formData.append("price", element.price);
 
     if (element.photo instanceof File) {
@@ -128,7 +137,7 @@ const Update = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="Vendndohja">
+            <Form.Group className="mb-3" controlId="Vendndodhja">
               <Form.Label>Vendndodhja</Form.Label>
               <Form.Control
                 type="text"
@@ -157,7 +166,11 @@ const Update = () => {
         </div>
       </div>
     </div>
-  );
+  ); 
 };
 
 export default Update;
+
+
+
+

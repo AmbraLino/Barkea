@@ -11,7 +11,7 @@ const Create = ({ addCategory }) => {
   category: "",
   description: "",
   siperfaqja: "",
-  vendndohja: "",
+  vendndodhja: "",
   photo: null,
   price: "",
 });
@@ -44,7 +44,7 @@ const Create = ({ addCategory }) => {
     formData.append("photo", product.photo);
 formData.append("description", product.description);
 formData.append("siperfaqja", product.siperfaqja);
-formData.append("vendndohja", product.vendndohja);
+formData.append("vendndohja", product.vendndodhja);
 
     try {
       const res = await axios.post(
@@ -133,7 +133,7 @@ formData.append("vendndohja", product.vendndohja);
   <Form.Label>Vendndodhja</Form.Label>
   <Form.Control
     type="text"
-    name="vendndohja"
+    name="vendndodhja"
     value={product.vendndohja}
     onChange={handleChange}
     placeholder="P.sh. Tiranë, Shqipëri"
@@ -188,3 +188,7 @@ formData.append("vendndohja", product.vendndohja);
 };
 
 export default Create;
+
+
+
+
