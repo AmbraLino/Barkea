@@ -18,6 +18,7 @@ import { UserContextProvider } from "./Auth/UserContext";
 import AgjentPanel from "./Agjent/AgjentPanel"; 
 import AgjentRoute from "./Auth/AgjentRoute";
 import UserProfile from "./User/UserProfile";
+import ReadOne from "./MainPages/ReadOne";
 function App() {
   return (
     <>
@@ -30,6 +31,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/readOne/:id" element={<ReadOne />} />
         {/* <Route path="/agjent" element={<Agjent />} /> */}
 
         <Route path="/create" element={<Create />} />

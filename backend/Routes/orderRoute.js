@@ -9,7 +9,6 @@ app.post("/create", verifyToken, async (req, res) => {
     const { productId, date, time } = req.body;
     const newOrder = new orderModel({
       product: productId,
-      user: req.user._id,
       date,
       time
     });
