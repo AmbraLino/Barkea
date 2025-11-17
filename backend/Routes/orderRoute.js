@@ -4,18 +4,15 @@ const orderModel = require("../Models/orderModel");
 const User = require("../Models/userModel");
 const { verifyToken, isAgent } = require("../middleware/auth");
 
-// FUNCTION: get the one and only agent in database
 const getAgentId = async () => {
   const agent = await User.findOne({ role: "agent" });
   return agent ? agent._id : null;
 };
 
-// CREATE ORDER
 app.post("/create", verifyToken, async (req, res) => {
   try {
     const { productId, date, time, message } = req.body;
 
-    // find agent automatically
     const agentId = await getAgentId();
     if (!agentId)
       return res.status(500).json({ message: "Nuk u gjet asnje agjent ne sistem." });
@@ -40,7 +37,6 @@ app.post("/create", verifyToken, async (req, res) => {
   }
 });
 
-// GET all orders (agent panel)
 app.get("/all", verifyToken, isAgent, async (req, res) => {
   try {
     const orders = await orderModel
@@ -55,7 +51,6 @@ app.get("/all", verifyToken, isAgent, async (req, res) => {
   }
 });
 
-// CONFIRM RESERVATION BY AGENT
 app.patch("/confirm/:id", verifyToken, isAgent, async (req, res) => {
   try {
     const order = await orderModel.findByIdAndUpdate(
@@ -71,7 +66,7 @@ app.patch("/confirm/:id", verifyToken, isAgent, async (req, res) => {
 });
 
 
-router.get("/my", verifyToken, async (req, res) => {
+app.get("/my", verifyToken, async (req, res) => {
   try {
     const orders = await OrderModel.find({ user: req.user.id })
       .populate("product")   
@@ -83,7 +78,7 @@ router.get("/my", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Error loading reservations" });
   }
 });
-router.get("/my", verifyToken, async (req, res) => {
+app.get("/my", verifyToken, async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user.id })
       .populate("product")

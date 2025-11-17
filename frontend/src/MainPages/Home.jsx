@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link,useNavigate } from "react-router-dom";
+import axios from "axios";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Carousel from "react-bootstrap/Carousel";
@@ -16,7 +17,21 @@ import { FaSmile, FaHome, FaWallet, FaMapMarkedAlt } from "react-icons/fa";
 import "./Home.css";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/product/reads");
+        setProducts(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchProducts();
+  }, []);
   const cardsPerPage = 3;
   const houses = [
     {
@@ -39,18 +54,28 @@ const Home = () => {
       title: "Ambiente Komerciale",
       desc: "Dyqane, butiqe ose ambiente për biznese me qira ose për shitje.",
     },
-      {
+    {
       img: vilaPushimi1,
       title: "Vila Pushimi",
       desc: "Vila pushimi pranë natyrës, perfekte për relaks, larg zhurmës së qytetit.",
     },
-      {
+    {
       img: garzionere1,
       title: "Garsoniere",
       desc: "Garsoniere moderne dhe funksionale, ideale për jetesë urbane.",
     },
-    
+
   ];
+
+  // const filteredHouses = houses.filter((house) =>
+  //   house.title.toLowerCase().includes(search.toLowerCase())
+  // );
+  const filteredProducts = products.filter(
+    (p) =>
+      (p.name && p.name.toLowerCase().includes(search.toLowerCase())) ||
+      (p.category && p.category.toLowerCase().includes(search.toLowerCase()))
+  );
+
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
@@ -67,7 +92,28 @@ const Home = () => {
         </div>
         <div className="home-top-filter d-inline-flex align-items-center px-4 py-2 rounded-pill">
           <FontAwesomeIcon icon={faMagnifyingGlass} className="me-2 home-icon" />
-          <span className="home-filter-text">Kerkoni ketu</span>
+          {/* <span className="home-filter-text">Kerkoni ketu</span> */}
+
+        <input
+            type="text"
+            placeholder="Kërkoni këtu..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && search.trim() !== "") {
+                // Redirect tek Categories me category param
+                navigate(`/categories?category=${encodeURIComponent(search.trim().toLowerCase())}`);
+              }
+            }}
+            style={{
+              background: "transparent",
+              border: "none",
+              outline: "none",
+              color: "white",
+              fontSize: "16px",
+              width: "200px"
+            }}
+          />
         </div>
       </div>
 
@@ -116,14 +162,32 @@ const Home = () => {
             style={{ width: "22rem" }}
           >
             <img src={card.img} alt={card.title} className="card-img-top home-img" />
-<Link className="overlay" to="/categories">
-  Eksploro
-</Link>            <div className="card-body">
+            <Link className="overlay" to="/categories">
+              Eksploro
+            </Link>           
+            <div className="card-body">
               <h3 className="home-h fw-bold fs-4">{card.title}</h3>
               <p className="home-p fs-6">{card.desc}</p>
             </div>
           </div>
         ))}
+        {/* {filteredProducts.map((product, index) => (
+          <div
+            key={index}
+            className="home-house-type card border-0 shadow-sm text-center"
+            style={{ width: "22rem" }}
+          >
+            <img src={`http://localhost:5000/Images/${product.photo}`} alt={product.name} className="card-img-top home-img" />
+            <Link className="overlay" to="/categories">
+              Eksploro
+            </Link>
+            <div className="card-body">
+              <h3 className="home-h fw-bold fs-4">{product.name}</h3>
+              <p className="home-p fs-6">{product.description}</p>
+            </div>
+          </div>
+        ))} */}
+
       </div>
 
       <div className="d-flex justify-content-center mt-4">
@@ -184,3 +248,5 @@ const Home = () => {
 };
 
 export default Home;
+
+
