@@ -77,30 +77,6 @@ app.delete("/deleteOneProduct/:id", async (req, res) => {
   }
 });
 
-// app.patch("/updateProduct/:id", upload.single("photo"), async (req, res) => {
-//   try {
-//     const infoProduct = { ...req.body };
-//     if (req.file) infoProduct.photo = req.file.filename;
-
-// const updated = await productModel.findByIdAndUpdate(
-//   req.params.id,
-//   { 
-//     name: infoProduct.name,
-//     description: infoProduct.description,
-//     siperfaqja: infoProduct.siperfaqja,
-//     vendndodhja: infoProduct.vendndodhja,
-//     price: infoProduct.price,
-//     category: infoProduct.category,
-//     ...(infoProduct.photo && { photo: infoProduct.photo }) 
-//   },
-//   { new: true }
-// );
-//     res.status(200).json(updated);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Produkti nuk u perditesua.");
-//   }
-// });
 app.patch("/updateProduct/:id", upload.single("photo"), async (req, res) => {
   try {
     const { name, description, siperfaqja, vendndodhja, price, category } = req.body;

@@ -15,7 +15,7 @@ const orderSchema = new mongoose.Schema(
     agent: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: false,
+      required: true,
     },
     date: {
       type: String,
