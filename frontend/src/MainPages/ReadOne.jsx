@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Row, Col, Button, Card, Modal, Form } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useParams } from "react-router-dom";
 
 const ReadOne = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-
   const [element, setElement] = useState({});
   const [reserveShow, setReserveShow] = useState(false);
-  const [reserveData, setReserveData] = useState({ date: "", time: "" });
+
+  const [reserveData, setReserveData] = useState({
+    date: "",
+    time: "",
+    message: ""
+  });
 
   useEffect(() => {
     const fetchOne = async () => {
@@ -32,16 +34,17 @@ const ReadOne = () => {
         {
           productId: element._id,
           date: reserveData.date,
-          time: reserveData.time
+          time: reserveData.time,
+          message: reserveData.message
         },
         { withCredentials: true }
       );
 
       alert("Rezervimi u krijua me sukses!");
       setReserveShow(false);
-      setReserveData({ date: "", time: "" });
+      setReserveData({ date: "", time: "", message: "" });
     } catch (err) {
-      console.log("Gabim gjatë rezervimit:", err.response?.data || err);
+      console.log("Gabim gjate rezervimit:", err.response?.data || err);
     }
   };
 
@@ -60,23 +63,15 @@ const ReadOne = () => {
           </Col>
 
           <Col md={8}>
-            <Card
-              className="border-0 rounded-4 p-4 h-100 d-flex flex-column justify-content-between"
-              style={{ backgroundColor: "#d7dde4" }}
-            >
+            <Card className="border-0 rounded-4 p-4 h-100 d-flex flex-column justify-content-between"
+              style={{ backgroundColor: "#d7dde4" }}>
               <div>
                 <Card.Title className="fw-bold fs-1 text-left mb-4">
                   {element.name}
                 </Card.Title>
 
-                <Card.Text
-                  className="text-muted fs-5"
-                  style={{
-                    lineHeight: "1.6rem",
-                    maxHeight: "12rem",
-                    overflow: "auto"
-                  }}
-                >
+                <Card.Text className="text-muted fs-5"
+                  style={{ lineHeight: "1.6rem", maxHeight: "12rem", overflow: "auto" }}>
                   {element.description}
                 </Card.Text>
 
@@ -99,7 +94,6 @@ const ReadOne = () => {
         </Row>
       </Container>
 
-      {/* Reservation modal */}
       <Modal show={reserveShow} onHide={() => setReserveShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Rezervo: {element.name}</Modal.Title>
@@ -127,6 +121,19 @@ const ReadOne = () => {
                   setReserveData({ ...reserveData, time: e.target.value })
                 }
                 required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Mesazhi</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Shkruani një mesazh (opsionale)"
+                value={reserveData.message}
+                onChange={(e) =>
+                  setReserveData({ ...reserveData, message: e.target.value })
+                }
               />
             </Form.Group>
 

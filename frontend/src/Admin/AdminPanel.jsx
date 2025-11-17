@@ -46,9 +46,6 @@ const AdminPanel = () => {
         <Link to="/create">
           <Button  style={{ backgroundColor: "#185816ff", borderColor: "#2b0a0aff" }} >Krijo nje produkt te ri</Button>
         </Link>
-        {/* <Link to="/read">
-          <Button style={{ backgroundColor: "#400f0fff", borderColor: "#2b0a0aff" }}>Read Products</Button>
-        </Link> */}
         <Form.Control
           type="text"
           placeholder="Kerko ketu..."

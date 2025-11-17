@@ -46,11 +46,18 @@ router.post("/login", async (req, res) => {
         const passOk = bcrypt.compareSync(password, findUser.password);
         if (!passOk) return res.status(400).json({ message: "Kredencialet janë gabim" });
 
-        const token = jwt.sign(
-            { id: findUser._id, role: findUser.role },
-            secret,
-            { expiresIn: "1d" }
-        );
+     const token = jwt.sign(
+    {
+        id: findUser._id,
+        _id: findUser._id, 
+        role: findUser.role,
+        email: findUser.email,
+        username: findUser.username
+    },
+    secret,
+    { expiresIn: "1d" }
+);
+
 
         res
             .cookie("token", token, {
