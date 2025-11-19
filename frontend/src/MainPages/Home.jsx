@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Carousel from "react-bootstrap/Carousel";
@@ -17,7 +17,10 @@ import "./Home.css";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
   const cardsPerPage = 3;
+
   const houses = [
     {
       img: home1,
@@ -39,147 +42,158 @@ const Home = () => {
       title: "Ambiente Komerciale",
       desc: "Dyqane, butiqe ose ambiente për biznese me qira ose për shitje.",
     },
-      {
+    {
       img: vilaPushimi1,
       title: "Vila Pushimi",
       desc: "Vila pushimi pranë natyrës, perfekte për relaks, larg zhurmës së qytetit.",
     },
-      {
+    {
       img: garzionere1,
       title: "Garsoniere",
       desc: "Garsoniere moderne dhe funksionale, ideale për jetesë urbane.",
     },
-    
   ];
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = houses.slice(indexOfFirstCard, indexOfLastCard);
   const totalPages = Math.ceil(houses.length / cardsPerPage);
-
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
-  return (
-    <div className="home-container">
-      <div className="home-top d-flex flex-column justify-content-center align-items-center text-center py-5">
-        <div className="home-top-text fs-1 fw-bold mb-4">
-          Barkea – Arti i Jetesës Moderne
-        </div>
-        <div className="home-top-filter d-inline-flex align-items-center px-4 py-2 rounded-pill">
-          <FontAwesomeIcon icon={faMagnifyingGlass} className="me-2 home-icon" />
-          <span className="home-filter-text">Kerkoni ketu</span>
-        </div>
+  return (<div className="home-container"> <div className="home-top d-flex flex-column justify-content-center align-items-center text-center py-5"> <div className="home-top-text fs-1 fw-bold mb-4">
+    Barkea – Arti i Jetesës Moderne </div>
+    <div className="home-top-filter d-inline-flex align-items-center px-4 py-2 rounded-pill"> <FontAwesomeIcon icon={faMagnifyingGlass} className="me-2 home-icon" />
+      <input
+        type="text"
+        placeholder="Kërkoni këtu..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && search.trim() !== "") {
+            navigate(`/categories?category=${encodeURIComponent(search.trim().toLowerCase())}`);
+          }
+        }}
+        style={{
+          background: "transparent",
+          border: "none",
+          outline: "none",
+          color: "white",
+          fontSize: "16px",
+          width: "200px"
+        }}
+      /> </div> </div>
+
+    ```
+    <div className="home-advertisement text-center py-5">
+      <div className="home-text-adv mb-4">
+        <h2 className="home-h fw-bold">Barkea – Real Estate</h2>
+        <h4 className="home-h fw-semibold">
+          Ju ofron komoditet, siguri, cilësi dhe elegancë
+        </h4>
+        <h5 className="home-h">Këtu janë disa nga punët tona</h5>
       </div>
 
-
-      <div className="home-advertisement text-center py-5">
-        <div className="home-text-adv mb-4">
-          <h2 className="home-h fw-bold">Barkea – Real Estate</h2>
-          <h4 className="home-h fw-semibold">
-            Ju ofron komoditet, siguri, cilësi dhe elegancë
-          </h4>
-          <h5 className="home-h">Këtu janë disa nga punët tona</h5>
-        </div>
-
-        <div className="home-carousel-container mx-auto shadow-sm rounded overflow-hidden">
-          <Carousel fade interval={3000}>
-            {[home1, home22, home3].map((img, i) => (
-              <Carousel.Item key={i}>
-                <img className="d-block w-100 home-carousel-img" src={img} alt={`Slide ${i}`} />
-                <Carousel.Caption>
-                  <h3 className="home-h fw-semibold fs-4 home-carousel-caption">
-                    Arti i Jetesës Moderne
-                  </h3>
-                </Carousel.Caption>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </div>
-      </div>
-
-      <div className="home-section3-text text-center container py-5">
-        <h2 className="home-h fw-semibold fs-2 mb-3">
-          Këtu mund të gjeni atë çka dëshironi dhe keni ëndërruar.
-        </h2>
-        <p className="home-p fs-5">
-          Investimi i shtëpisë duhet të jetë i mençur dhe i sigurt. Zbuloni
-          larmishmërinë e shtëpive tona të dizajnuara për një stil jetese modern dhe të sofistikuar.
-        </p>
-      </div>
-
-
-      <div className="home-section4 container py-5 d-flex flex-wrap justify-content-center gap-4">
-        {currentCards.map((card, index) => (
-          <div
-            key={index}
-            className="home-house-type card border-0 shadow-sm text-center"
-            style={{ width: "22rem" }}
-          >
-            <img src={card.img} alt={card.title} className="card-img-top home-img" />
-<Link className="overlay" to="/categories">
-  Eksploro
-</Link>            <div className="card-body">
-              <h3 className="home-h fw-bold fs-4">{card.title}</h3>
-              <p className="home-p fs-6">{card.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="d-flex justify-content-center mt-4">
-        <Pagination>
-          <Pagination.Prev
-            disabled={currentPage === 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-          />
-          {[...Array(totalPages)].map((_, i) => (
-            <Pagination.Item
-              key={i + 1}
-              active={i + 1 === currentPage}
-              onClick={() => handlePageChange(i + 1)}
-            >
-              {i + 1}
-            </Pagination.Item>
+      <div className="home-carousel-container mx-auto shadow-sm rounded overflow-hidden">
+        <Carousel fade interval={3000}>
+          {[home1, home22, home3].map((img, i) => (
+            <Carousel.Item key={i}>
+              <img className="d-block w-100 home-carousel-img" src={img} alt={`Slide ${i}`} />
+              <Carousel.Caption>
+                <h3 className="home-h fw-semibold fs-4 home-carousel-caption">
+                  Arti i Jetesës Moderne
+                </h3>
+              </Carousel.Caption>
+            </Carousel.Item>
           ))}
-          <Pagination.Next
-            disabled={currentPage === totalPages}
-            onClick={() => handlePageChange(currentPage + 1)}
-          />
-        </Pagination>
+        </Carousel>
       </div>
+    </div>
 
-      {/*  Features Section */}
-      <div className="choose-us">
-        <h2>Pse të na zgjidhni ne?</h2>
-        <p className="choose-subtitle">Ne ofrojmë përvojë të plotë në çdo hap.</p>
+    <div className="home-section3-text text-center container py-5">
+      <h2 className="home-h fw-semibold fs-2 mb-3">
+        Këtu mund të gjeni atë çka dëshironi dhe keni ëndërruar.
+      </h2>
+      <p className="home-p fs-5">
+        Investimi i shtëpisë duhet të jetë i mençur dhe i sigurt. Zbuloni
+        larmishmërinë e shtëpive tona të dizajnuara për një stil jetese modern dhe të sofistikuar.
+      </p>
+    </div>
 
-        <div className="choose-grid">
-          <div className="choose-card">
-            <FaSmile className="choose-icon" />
-            <h4>Të besuar nga mijëra</h4>
-            <p>Me mbi 1,000 klientë të kënaqur, ju jeni në duar të sigurta.</p>
+    <div className="home-section4 container py-5 d-flex flex-wrap justify-content-center gap-4">
+      {currentCards.map((card, index) => (
+        <div
+          key={index}
+          className="home-house-type card border-0 shadow-sm text-center"
+          style={{ width: "22rem" }}
+        >
+          <img src={card.img} alt={card.title} className="card-img-top home-img" />
+          <Link className="overlay" to="/categories">
+            Eksploro
+          </Link>
+          <div className="card-body">
+            <h3 className="home-h fw-bold fs-4">{card.title}</h3>
+            <p className="home-p fs-6">{card.desc}</p>
           </div>
+        </div>
+      ))}
+    </div>
 
-          <div className="choose-card">
-            <FaHome className="choose-icon" />
-            <h4>Gamë e gjerë pronash</h4>
-            <p>Një gamë e gjerë pronash për çdo nevojë dhe buxhet.</p>
-          </div>
+    <div className="d-flex justify-content-center mt-4">
+      <Pagination>
+        <Pagination.Prev
+          disabled={currentPage === 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+        />
+        {[...Array(totalPages)].map((_, i) => (
+          <Pagination.Item
+            key={i + 1}
+            active={i + 1 === currentPage}
+            onClick={() => handlePageChange(i + 1)}
+          >
+            {i + 1}
+          </Pagination.Item>
+        ))}
+        <Pagination.Next
+          disabled={currentPage === totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+        />
+      </Pagination>
+    </div>
 
-          <div className="choose-card">
-            <FaWallet className="choose-icon" />
-            <h4>Financim i thjeshtë</h4>
-            <p>Proces i lehtë dhe transparent financimi për klientët tanë.</p>
-          </div>
+    {/* Features Section */}
+    <div className="choose-us">
+      <h2>Pse të na zgjidhni ne?</h2>
+      <p className="choose-subtitle">Ne ofrojmë përvojë të plotë në çdo hap.</p>
 
-          <div className="choose-card">
-            <FaMapMarkedAlt className="choose-icon" />
-            <h4>Shiko lagjet</h4>
-            <p>Eksploroni lagjet më të mira përpara se të zgjidhni.</p>
-          </div>
+      <div className="choose-grid">
+        <div className="choose-card">
+          <FaSmile className="choose-icon" />
+          <h4>Të besuar nga mijëra</h4>
+          <p>Me mbi 1,000 klientë të kënaqur, ju jeni në duar të sigurta.</p>
+        </div>
+
+        <div className="choose-card">
+          <FaHome className="choose-icon" />
+          <h4>Gamë e gjerë pronash</h4>
+          <p>Një gamë e gjerë pronash për çdo nevojë dhe buxhet.</p>
+        </div>
+
+        <div className="choose-card">
+          <FaWallet className="choose-icon" />
+          <h4>Financim i thjeshtë</h4>
+          <p>Proces i lehtë dhe transparent financimi për klientët tanë.</p>
+        </div>
+
+        <div className="choose-card">
+          <FaMapMarkedAlt className="choose-icon" />
+          <h4>Shiko lagjet</h4>
+          <p>Eksploroni lagjet më të mira përpara se të zgjidhni.</p>
         </div>
       </div>
     </div>
+  </div>
+
+
   );
 };
 

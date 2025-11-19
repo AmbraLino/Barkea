@@ -3,8 +3,6 @@ import axios from "axios";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import AdminProp from "./AdminProp"; 
 
-// import PropsCRUD from "../Categories/PropsCRUD";
-
 const Read = () => {
   const [infos, setInfos] = useState([]);
   const [search, setSearch] = useState(""); 

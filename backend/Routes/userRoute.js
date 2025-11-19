@@ -75,23 +75,26 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-    const token = req.cookies.token;
-    if (!token) return res.status(401).json({ message: "No token provided" });
+  const token = req.cookies.token;
+  if (!token) return res.status(401).json({ message: "No token provided" });
 
-    jwt.verify(token, secret, {}, async (err, decoded) => {
-        if (err) return res.status(403).json({ message: "Invalid token" });
+  jwt.verify(token, secret, {}, async (err, decoded) => {
+    if (err) return res.status(403).json({ message: "Invalid token" });
         
-        try {
-            const user = await userModel.findById(decoded.id).select("username email role");
-            
-            if (!user) return res.status(404).json({ message: "User not found" });
+    try {
+  const user = await userModel.findById(decoded.id).select("-password");
 
-            res.status(200).json(user);
-        } catch (error) {
-            res.status(500).json({ message: "Server error" });
-        }
-    });
+
+      if (!user) return res.status(404).json({ message: "User not found" });
+
+      res.status(200).json(user);
+
+    } catch (error) {
+      res.status(500).json({ message: "Server error" });
+    }
+  });
 });
+
 
 //api per ti ber update te dhenat e userit (nga useri vet)
 
