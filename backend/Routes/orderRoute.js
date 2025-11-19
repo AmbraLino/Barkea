@@ -1,5 +1,5 @@
 const express = require("express");
-const app = express();
+const router = express.Router();
 const orderModel = require("../Models/orderModel");
 const User = require("../Models/userModel");
 const { verifyToken, isAgent } = require("../middleware/auth");
@@ -9,13 +9,15 @@ const getAgentId = async () => {
   return agent ? agent._id : null;
 };
 
-app.post("/create", verifyToken, async (req, res) => {
+
+router.post("/create", verifyToken, async (req, res) => {
   try {
     const { productId, date, time, message } = req.body;
 
+    // find agent automatically
     const agentId = await getAgentId();
     if (!agentId)
-      return res.status(500).json({ message: "Nuk u gjet asnje agjent ne sistem." });
+      return res.status(500).json({ message: "No agent found in the system." });
 
     const newOrder = new orderModel({
       product: productId,
@@ -23,35 +25,49 @@ app.post("/create", verifyToken, async (req, res) => {
       agent: agentId,
       date,
       time,
-      message: message || ""
+      message: message || "",
     });
 
     await newOrder.save();
     res.status(200).json(newOrder);
-
   } catch (err) {
     res.status(500).json({
-      message: "Gabim gjatë krijimit të rezervimit",
-      error: err.message
+      message: "Error creating reservation",
+      error: err.message,
     });
   }
 });
 
-app.get("/all", verifyToken, isAgent, async (req, res) => {
+
+router.get("/all", verifyToken, isAgent, async (req, res) => {
   try {
     const orders = await orderModel
       .find()
       .populate("product")
-      .populate("user")
-      .populate("agent");
+      .populate("user", "username email")
+      .populate("agent", "username email");
 
     res.status(200).json(orders);
   } catch (err) {
-    res.status(500).json({ message: "Gabim gjatë marrjes së rezervimeve" });
+    res.status(500).json({ message: "Error fetching orders" });
   }
 });
 
-app.patch("/confirm/:id", verifyToken, isAgent, async (req, res) => {
+
+router.get("/my", verifyToken, async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({ user: req.user.id })
+      .populate("product", "name")
+      .populate("agent", "username email");
+    res.json(orders);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error loading reservations" });
+  }
+});
+
+router.patch("/confirm/:id", verifyToken, isAgent, async (req, res) => {
   try {
     const order = await orderModel.findByIdAndUpdate(
       req.params.id,
@@ -61,35 +77,8 @@ app.patch("/confirm/:id", verifyToken, isAgent, async (req, res) => {
 
     res.status(200).json(order);
   } catch (err) {
-    res.status(500).json({ message: "Gabim gjatë konfirmimit të rezervimit" });
+    res.status(500).json({ message: "Error confirming reservation" });
   }
 });
 
-
-app.get("/my", verifyToken, async (req, res) => {
-  try {
-    const orders = await OrderModel.find({ user: req.user.id })
-      .populate("product")   
-      .populate("agent");     
-
-    res.json(orders);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Error loading reservations" });
-  }
-});
-app.get("/my", verifyToken, async (req, res) => {
-  try {
-    const orders = await Order.find({ user: req.user.id })
-      .populate("product")
-      .populate("agent", "username email");
-    res.json(orders);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Error loading reservations" });
-  }
-});
-
-
-module.exports = app;
-
+module.exports = router;

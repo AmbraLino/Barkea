@@ -29,7 +29,7 @@ function Contact() {
       return;
     }
     try {
-      await axios.post("http://localhost:5000/contactUs", contact);
+      await axios.post("http://localhost:5000/contact/contactUs", contact);
       setToastMessage("Faleminderit qe na kontaktuat! Ne do ju pergjigjemi brenda 24 oreve.");
       setShowToast(true);
       setContact({ firstName: "", lastName: "", email: "", sms: "" });

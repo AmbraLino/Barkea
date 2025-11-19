@@ -27,7 +27,6 @@ const Register = () => {
       console.log("Perdoruesi u krijua:", res.data);
       navigate('/');
     } catch (err) {
-      // console.log("User not created:", err);
       setError("Perdoruesi nuk u krijua");
     }
   };
@@ -37,8 +36,6 @@ const Register = () => {
     <div className="register-container">
       <div className="register-form">
         <div className="logo-header">
-          {/* <img src={logo} width="180" height="80" alt="logo" /> */}
-          {/* <span>Barkea</span> */}
         </div>
 
         <h2>Regjistrohu</h2>
