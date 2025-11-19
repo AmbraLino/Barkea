@@ -186,13 +186,13 @@ const Categories = () => {
                [...new Set(products.map((p) => p.category))].map((cat) => (
               // products.map((item) => (
                 // <Col md={12} key={item._id} className="mb-4">
-                 <Col md={6} key={cat} className="mb-4">
+                 <Col md={6} key={cat} className="mb-3">
                   <h4 className="mb-3">{cat.charAt(0).toUpperCase() + cat.slice(1)}</h4>
                   <Row>
                     {products
                       .filter((p) => p.category === cat)
                       .map((item) => (
-                        <Col md={8} key={item._id} className="mb-4">
+                        <Col md={12} key={item._id} className="mb-4">
                   <Card className="h-100 border-0 shadow-sm card-horizontal">
                     {item.photo && (
                       <Card.Img

@@ -19,7 +19,6 @@ const Home = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const navigate = useNavigate();
   const cardsPerPage = 3;
 
   const houses = [
@@ -55,25 +54,20 @@ const Home = () => {
     },
   ];
 
-  // const filteredHouses = houses.filter((house) =>
-  //   house.title.toLowerCase().includes(search.toLowerCase())
-  // );
-  const filteredProducts = products.filter(
-    (p) =>
-      (p.name && p.name.toLowerCase().includes(search.toLowerCase())) ||
-      (p.category && p.category.toLowerCase().includes(search.toLowerCase()))
+  // Filter houses based on search input
+  const filteredHouses = houses.filter((house) =>
+    house.title.toLowerCase().includes(search.toLowerCase())
   );
-
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = houses.slice(indexOfFirstCard, indexOfLastCard);
-  const totalPages = Math.ceil(houses.length / cardsPerPage);
+  const currentCards = filteredHouses.slice(indexOfFirstCard, indexOfLastCard);
+  const totalPages = Math.ceil(filteredHouses.length / cardsPerPage);
+
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   return (<div className="home-container"> <div className="home-top d-flex flex-column justify-content-center align-items-center text-center py-5"> <div className="home-top-text fs-1 fw-bold mb-4">
-    Barkea – Arti i Jetesës Moderne </div>
-    <div className="home-top-filter d-inline-flex align-items-center px-4 py-2 rounded-pill"> <FontAwesomeIcon icon={faMagnifyingGlass} className="me-2 home-icon" />
+    Barkea – Arti i Jetesës Moderne </div> <div className="home-top-filter d-inline-flex align-items-center px-4 py-2 rounded-pill"> <FontAwesomeIcon icon={faMagnifyingGlass} className="me-2 home-icon" />
       <input
         type="text"
         placeholder="Kërkoni këtu..."
@@ -90,11 +84,10 @@ const Home = () => {
           outline: "none",
           color: "white",
           fontSize: "16px",
-          width: "200px"
+          width: "200px",
         }}
       /> </div> </div>
 
-    ```
     <div className="home-advertisement text-center py-5">
       <div className="home-text-adv mb-4">
         <h2 className="home-h fw-bold">Barkea – Real Estate</h2>
@@ -209,5 +202,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
