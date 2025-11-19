@@ -4,13 +4,12 @@ const orderModel = require("../Models/orderModel");
 const User = require("../Models/userModel");
 const { verifyToken, isAgent } = require("../middleware/auth");
 
-// FUNCTION: get the one and only agent in database
 const getAgentId = async () => {
   const agent = await User.findOne({ role: "agent" });
   return agent ? agent._id : null;
 };
 
-// CREATE ORDER
+
 router.post("/create", verifyToken, async (req, res) => {
   try {
     const { productId, date, time, message } = req.body;
@@ -39,7 +38,7 @@ router.post("/create", verifyToken, async (req, res) => {
   }
 });
 
-// GET all orders (agent panel)
+
 router.get("/all", verifyToken, isAgent, async (req, res) => {
   try {
     const orders = await orderModel
@@ -54,7 +53,7 @@ router.get("/all", verifyToken, isAgent, async (req, res) => {
   }
 });
 
-// GET orders of the logged-in user (for profile)
+
 router.get("/my", verifyToken, async (req, res) => {
   try {
     const orders = await orderModel
@@ -68,7 +67,6 @@ router.get("/my", verifyToken, async (req, res) => {
   }
 });
 
-// CONFIRM RESERVATION BY AGENT
 router.patch("/confirm/:id", verifyToken, isAgent, async (req, res) => {
   try {
     const order = await orderModel.findByIdAndUpdate(

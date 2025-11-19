@@ -130,6 +130,7 @@
 
     .login-carousel img {
         height: 300px;
+        aspect-ratio: 4 / 3;
     }
 
     .login-options {
@@ -159,6 +160,7 @@
 
     .login-carousel img {
         height: 250px;
+        aspect-ratio: 4 / 3;
     }
 
     .login-options {

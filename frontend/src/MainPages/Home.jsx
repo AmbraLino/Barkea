@@ -16,6 +16,7 @@ import { FaSmile, FaHome, FaWallet, FaMapMarkedAlt } from "react-icons/fa";
 import "./Home.css";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
@@ -53,6 +54,16 @@ const Home = () => {
       desc: "Garsoniere moderne dhe funksionale, ideale për jetesë urbane.",
     },
   ];
+
+  // const filteredHouses = houses.filter((house) =>
+  //   house.title.toLowerCase().includes(search.toLowerCase())
+  // );
+  const filteredProducts = products.filter(
+    (p) =>
+      (p.name && p.name.toLowerCase().includes(search.toLowerCase())) ||
+      (p.category && p.category.toLowerCase().includes(search.toLowerCase()))
+  );
+
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
@@ -198,3 +209,5 @@ const Home = () => {
 };
 
 export default Home;
+
+

@@ -7,7 +7,6 @@ const router = express.Router();
 const secret = "asdfe45we45w345wegw345werjktjwertkjfdgfgfsgf";
 const salt = bcrypt.genSaltSync(10);
 
-// REGISTER
 router.post("/register", async (req, res) => {
     const { username, email, password, role } = req.body;
     try {
@@ -41,8 +40,8 @@ router.post("/login", async (req, res) => {
 
     try {
         const findUser = await userModel.findOne({ email });
+        if (!findUser) return res.status(400).json({ message: "Kredencialet janë gabim" });
 
-        if (!findUser) return res.status(400).json({ message: "Kredencialet janë gabim" }); 
         const passOk = bcrypt.compareSync(password, findUser.password);
         if (!passOk) return res.status(400).json({ message: "Kredencialet janë gabim" });
 
@@ -63,7 +62,7 @@ router.post("/login", async (req, res) => {
             .cookie("token", token, {
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 24,
-                sameSite: "Lax", 
+                sameSite: "Lax",
                 secure: false, 
             })
             .status(200)

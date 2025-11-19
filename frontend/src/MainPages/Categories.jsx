@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Row, Col, Card, Nav, Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useLocation} from "react-router-dom";
 import "./Categories.css";
 
 const Categories = () => {
   const navigate = useNavigate();
-
+ const location = useLocation();
   const [allProducts, setAllProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -16,6 +16,14 @@ const Categories = () => {
   const [locationFilter, setLocationFilter] = useState("");
   const [areaMin, setAreaMin] = useState("");
   const [areaMax, setAreaMax] = useState("");
+
+   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryFromQuery = params.get("category");
+    if (categoryFromQuery) {
+      setSelectedCategory(categoryFromQuery.toLowerCase());
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -78,7 +86,7 @@ const Categories = () => {
           </Nav.Link>
         </Nav.Item>
 
-        {categories.map((cat) => (
+        {/* {categories.map((cat) => (
           <Nav.Item key={cat}>
             <Nav.Link
               active={selectedCategory === cat}
@@ -88,6 +96,20 @@ const Categories = () => {
             </Nav.Link>
           </Nav.Item>
         ))}
+      </Nav> */}
+
+      {categories
+          .filter((cat) => allProducts.some((p) => p.category === cat))
+          .map((cat) => (
+            <Nav.Item key={cat}>
+              <Nav.Link
+                active={selectedCategory === cat}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </Nav.Link>
+            </Nav.Item>
+          ))}
       </Nav>
 
       <Row className="mt-4">
@@ -161,8 +183,16 @@ const Categories = () => {
         <Col md={9}>
           <Row className="mt-2">
             {products.length > 0 ? (
-              products.map((item) => (
-                <Col md={6} key={item._id} className="mb-4">
+               [...new Set(products.map((p) => p.category))].map((cat) => (
+              // products.map((item) => (
+                // <Col md={12} key={item._id} className="mb-4">
+                 <Col md={6} key={cat} className="mb-4">
+                  <h4 className="mb-3">{cat.charAt(0).toUpperCase() + cat.slice(1)}</h4>
+                  <Row>
+                    {products
+                      .filter((p) => p.category === cat)
+                      .map((item) => (
+                        <Col md={8} key={item._id} className="mb-4">
                   <Card className="h-100 border-0 shadow-sm card-horizontal">
                     {item.photo && (
                       <Card.Img
@@ -204,7 +234,10 @@ const Categories = () => {
                     </Card.Body>
                   </Card>
                 </Col>
-              ))
+              ))}
+              </Row>
+            </Col>
+               ))
             ) : (
               <p className="text-muted">Asnjë produkt nuk u gjet.</p>
             )}
